@@ -9,60 +9,58 @@ import org.json.simple.JSONArray;
 import java.io.IOException;
 import java.util.List;
 
-public class Favorite {
-   private Input input;
-     private ActionInputData actionInputData;
-    private Writer fileWriter;
-    private JSONArray arrayResult;
+public class Favorite extends AbstractAction {
 
-    public Favorite(Input input, ActionInputData actionInputData, Writer fileWriter,JSONArray arrayResult){
-        this.input=input;
-        this.actionInputData= actionInputData;
-        this.fileWriter=fileWriter;
-        this.arrayResult=arrayResult;
+  public Favorite(
+      Input input, ActionInputData actionInputData, Writer fileWriter, JSONArray arrayResult) {
+    super(input, actionInputData, fileWriter, arrayResult);
+  }
+
+  public StringBuilder executeCommand() {
+    StringBuilder message = new StringBuilder();
+    String username = super.getActionInputData().getUsername();
+    List<UserInputData> usersList = super.getInput().getUsers();
+    Boolean flag = false;
+    if (!usersList.isEmpty()) {
+      for (UserInputData userInputData : usersList) {
+        if (userInputData.getUsername().compareTo(username) == 0) {
+          if (userInputData.getHistory().get(super.getActionInputData().getTitle()) == null) {
+
+            message.append("error -> ");
+            message.append(super.getActionInputData().getTitle());
+            message.append(" is not seen");
+            return message;
+          } else {
+            for (String favorite : userInputData.getFavoriteMovies()) {
+              if (favorite.compareTo(super.getActionInputData().getTitle()) == 0) {
+                message.append("error -> ");
+                message.append(super.getActionInputData().getTitle());
+                message.append(" is already in favourite list");
+                flag = true;
+                return message;
+              }
+            }
+            if (flag == false) {
+              userInputData.getFavoriteMovies().add(super.getActionInputData().getTitle());
+              message.append("success -> ");
+              message.append(super.getActionInputData().getTitle());
+              message.append(" was added as favourite");
+            }
+          }
+        }
+      }
     }
+    return message;
+  }
 
-    public StringBuilder executeCommand(){
-        StringBuilder message = new StringBuilder();
-        String username= actionInputData.getUsername();
-        List <UserInputData> usersList=input.getUsers();
-        Boolean flag=false;
-         if (!usersList.isEmpty()) {
-             for (UserInputData userInputData : usersList) {
-                 if (userInputData.getUsername().compareTo(username) == 0) {
-                     if (userInputData.getHistory().get(actionInputData.getTitle()) == null) {
-
-                         message.append("error -> ");
-                         message.append(actionInputData.getTitle());
-                         message.append(" is not seen");
-                         return message;
-                         // break
-                     } else {
-                         for (String favorite : userInputData.getFavoriteMovies()) {
-                             if (favorite.compareTo(actionInputData.getTitle()) == 0) {
-                                 message.append("error -> ");
-                                 message.append(actionInputData.getTitle());
-                                 message.append(" is already in favourite list");
-                                 flag = true;
-                                 //break
-                                 return message;
-                             }
-                         }
-                         if (flag == false) {
-                             userInputData.getFavoriteMovies().add(actionInputData.getTitle());
-                             message.append("success -> ");
-                             message.append(actionInputData.getTitle());
-                             message.append(" was added as favourite");
-                         }
-                     }
-                 }
-             }
-         }
-        return message;
-    }
-
-    public void execute() throws IOException {
-        StringBuilder message = executeCommand();
-            arrayResult.add(fileWriter.writeFile(Integer.toString(actionInputData.getActionId()), "message:", message.toString()));
-    }
+  public void execute() throws IOException {
+    StringBuilder message = executeCommand();
+    super.getArrayResult()
+        .add(
+            super.getFileWriter()
+                .writeFile(
+                    Integer.toString(super.getActionInputData().getActionId()),
+                    "message:",
+                    message.toString()));
+  }
 }

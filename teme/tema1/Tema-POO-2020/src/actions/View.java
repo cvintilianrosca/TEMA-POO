@@ -9,48 +9,46 @@ import org.json.simple.JSONArray;
 import java.io.IOException;
 import java.util.List;
 
-public class View{
-    private Input input;
-    private ActionInputData actionInputData;
-    private Writer fileWriter;
-    private JSONArray arrayResult;
+public class View extends AbstractAction {
 
-    public View(Input input, ActionInputData actionInputData, Writer fileWriter,JSONArray arrayResult ){
-        this.input=input;
-        this.actionInputData= actionInputData;
-        this.fileWriter=fileWriter;
-        this.arrayResult=arrayResult;
-    }
+  public View(
+      Input input, ActionInputData actionInputData, Writer fileWriter, JSONArray arrayResult) {
+    super(input, actionInputData, fileWriter, arrayResult);
+  }
 
-
-    public StringBuilder executeCommand(){
-        StringBuilder message= new StringBuilder();
-        String username = actionInputData.getUsername();
-        List<UserInputData> usersList=input.getUsers();
-        for (UserInputData user : usersList) {
-            if (user.getUsername().compareTo(username)==0){
-                if(user.getHistory().get(actionInputData.getTitle()) != null){
-                   int views= user.getHistory().get(actionInputData.getTitle());
-                   views+=1;
-                   user.getHistory().put(actionInputData.getTitle(), views);
-                   message.append("success -> ");
-                   message.append(actionInputData.getTitle());
-                   message.append(" was viewed with total views of ");
-                   message.append(views);
-                }
-                else{
-                    user.getHistory().put(actionInputData.getTitle(), 1);
-                    message.append("success -> ");
-                    message.append(actionInputData.getTitle());
-                    message.append(" was viewed with total views of 1");
-                }
-            }
+  public StringBuilder executeCommand() {
+    StringBuilder message = new StringBuilder();
+    String username = super.getActionInputData().getUsername();
+    List<UserInputData> usersList = super.getInput().getUsers();
+    for (UserInputData user : usersList) {
+      if (user.getUsername().compareTo(username) == 0) {
+        if (user.getHistory().get(super.getActionInputData().getTitle()) != null) {
+          int views = user.getHistory().get(super.getActionInputData().getTitle());
+          views += 1;
+          user.getHistory().put(super.getActionInputData().getTitle(), views);
+          message.append("success -> ");
+          message.append(super.getActionInputData().getTitle());
+          message.append(" was viewed with total views of ");
+          message.append(views);
+        } else {
+          user.getHistory().put(super.getActionInputData().getTitle(), 1);
+          message.append("success -> ");
+          message.append(super.getActionInputData().getTitle());
+          message.append(" was viewed with total views of 1");
         }
-        return message;
+      }
     }
+    return message;
+  }
 
-    public void execute() throws IOException{
-        StringBuilder message = executeCommand();
-        arrayResult.add(fileWriter.writeFile(Integer.toString(actionInputData.getActionId()), "message:", message.toString()));
-    }
+  public void execute() throws IOException {
+    StringBuilder message = executeCommand();
+    super.getArrayResult()
+        .add(
+            super.getFileWriter()
+                .writeFile(
+                    Integer.toString(super.getActionInputData().getActionId()),
+                    "message:",
+                    message.toString()));
+  }
 }
