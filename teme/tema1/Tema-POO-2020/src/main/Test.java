@@ -19,10 +19,8 @@ public final class Test {
   public static void main(final String[] args) throws IOException {
     File directory = new File(Constants.TESTS_PATH);
     File[] inputDir = directory.listFiles();
-
     if (inputDir != null) {
       Arrays.sort(inputDir);
-
       Scanner scanner = new Scanner(System.in);
       String fileName = scanner.next();
       for (File file : inputDir) {

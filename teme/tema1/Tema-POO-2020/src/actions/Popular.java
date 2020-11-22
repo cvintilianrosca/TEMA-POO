@@ -2,34 +2,18 @@ package actions;
 
 import fileio.*;
 import org.json.simple.JSONArray;
+import sortingstategies.SortingStrategy;
+import sortingstategies.SortingStrategyFactory;
 
 import java.io.IOException;
-import java.util.*;
+import java.util.HashMap;
+import java.util.Map;
 
 public class Popular extends AbstractAction {
 
   public Popular(
       Input input, ActionInputData actionInputData, Writer fileWriter, JSONArray arrayResult) {
     super(input, actionInputData, fileWriter, arrayResult);
-  }
-
-  private static HashMap sortByValues(HashMap map) {
-    List list = new LinkedList(map.entrySet());
-    Collections.sort(
-        list,
-        new Comparator() {
-          public int compare(Object o1, Object o2) {
-            return ((Comparable) ((Map.Entry) (o2)).getValue())
-                .compareTo(((Map.Entry) (o1)).getValue());
-          }
-        });
-
-    HashMap sortedHashMap = new LinkedHashMap();
-    for (Iterator it = list.iterator(); it.hasNext(); ) {
-      Map.Entry entry = (Map.Entry) it.next();
-      sortedHashMap.put(entry.getKey(), entry.getValue());
-    }
-    return sortedHashMap;
   }
 
   public StringBuilder executeCommand() {
@@ -71,8 +55,8 @@ public class Popular extends AbstractAction {
         }
       }
     }
-
-    HashMap<String, Integer> sortedGenreViews = sortByValues(genresViews);
+    SortingStrategy sortingStrategy = SortingStrategyFactory.createStrategy("desc");
+    HashMap<String, Integer> sortedGenreViews = sortingStrategy.sortHashMap(genresViews);
     boolean flag = false;
     for (Map.Entry<String, Integer> entry : sortedGenreViews.entrySet()) {
 

@@ -6,53 +6,19 @@ import fileio.ActorInputData;
 import fileio.Input;
 import fileio.Writer;
 import org.json.simple.JSONArray;
+import sortingstategies.SortingStrategyFactory;
 
 import java.io.IOException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class QueryActorsAward extends AbstractAction {
 
   public QueryActorsAward(
       Input input, ActionInputData actionInputData, Writer fileWriter, JSONArray arrayResult) {
     super(input, actionInputData, fileWriter, arrayResult);
-  }
-
-  private static HashMap sort(HashMap map) {
-    List list = new LinkedList(map.entrySet());
-    Collections.sort(
-        list,
-        new Comparator() {
-          public int compare(Object o1, Object o2) {
-            return ((Comparable) ((Map.Entry) (o1)).getValue())
-                .compareTo(((Map.Entry) (o2)).getValue());
-          }
-        });
-
-    HashMap sortedHashMap = new LinkedHashMap();
-    for (Iterator it = list.iterator(); it.hasNext(); ) {
-      Map.Entry entry = (Map.Entry) it.next();
-      sortedHashMap.put(entry.getKey(), entry.getValue());
-    }
-    return sortedHashMap;
-  }
-
-  private static HashMap sortdesc(HashMap map) {
-    List list = new LinkedList(map.entrySet());
-    Collections.sort(
-        list,
-        new Comparator() {
-          public int compare(Object o1, Object o2) {
-            return ((Comparable) ((Map.Entry) (o2)).getValue())
-                .compareTo(((Map.Entry) (o1)).getValue());
-          }
-        });
-
-    HashMap sortedHashMap = new LinkedHashMap();
-    for (Iterator it = list.iterator(); it.hasNext(); ) {
-      Map.Entry entry = (Map.Entry) it.next();
-      sortedHashMap.put(entry.getKey(), entry.getValue());
-    }
-    return sortedHashMap;
   }
 
   public StringBuilder executeCommand() {
@@ -99,20 +65,19 @@ public class QueryActorsAward extends AbstractAction {
 
     HashMap<String, Integer> sortedlist;
     if (super.getActionInputData().getSortType().compareTo("desc") == 0) {
-      sortedlist = sortdesc(listActorsAward);
+      sortedlist = SortingStrategyFactory.createStrategy("desc").sortHashMap(listActorsAward);
     } else {
-      sortedlist = sort(listActorsAward);
+      sortedlist = SortingStrategyFactory.createStrategy("asc").sortHashMap(listActorsAward);
     }
 
     ArrayList<Map.Entry<String, Integer>> auxList = new ArrayList<>();
-    for (Map.Entry<String, Integer> entry : sortedlist.entrySet()) {
-      //         System.out.println(entry.getKey()); System.out.println(entry.getValue());
-      auxList.add(entry);
-    }
+    //         System.out.println(entry.getKey()); System.out.println(entry.getValue());
+    auxList.addAll(sortedlist.entrySet());
+
     if (super.getActionInputData().getSortType().compareTo("asc") == 0) {
-      auxList = bubbleSortasc(auxList);
+      auxList = SortingStrategyFactory.createStrategy("asc").bubbleSortForInteger(auxList);
     } else {
-      auxList = bubbleSortdesc(auxList);
+      auxList = SortingStrategyFactory.createStrategy("desc").bubbleSortForInteger(auxList);
     }
 
     message.append("Query result: [");
@@ -132,40 +97,6 @@ public class QueryActorsAward extends AbstractAction {
     }
     message.append("]");
     return message;
-  }
-
-  ArrayList<Map.Entry<String, Integer>> bubbleSortasc(
-      ArrayList<Map.Entry<String, Integer>> auxList) {
-    int n = auxList.size();
-    for (int i = 0; i < n - 1; i++) {
-      for (int j = 0; j < n - i - 1; j++) {
-        if (auxList.get(j).getValue().compareTo(auxList.get(j + 1).getValue()) == 0) {
-          if (auxList.get(j).getKey().compareTo(auxList.get(j + 1).getKey()) > 0) {
-            Map.Entry<String, Integer> tmp = auxList.get(j);
-            auxList.set(j, auxList.get(j + 1));
-            auxList.set(j + 1, tmp);
-          }
-        }
-      }
-    }
-    return auxList;
-  }
-
-  ArrayList<Map.Entry<String, Integer>> bubbleSortdesc(
-      ArrayList<Map.Entry<String, Integer>> auxList) {
-    int n = auxList.size();
-    for (int i = 0; i < n - 1; i++) {
-      for (int j = 0; j < n - i - 1; j++) {
-        if (auxList.get(j).getValue().compareTo(auxList.get(j + 1).getValue()) == 0) {
-          if (auxList.get(j).getKey().compareTo(auxList.get(j + 1).getKey()) < 0) {
-            Map.Entry<String, Integer> tmp = auxList.get(j);
-            auxList.set(j, auxList.get(j + 1));
-            auxList.set(j + 1, tmp);
-          }
-        }
-      }
-    }
-    return auxList;
   }
 
   public void execute() throws IOException {

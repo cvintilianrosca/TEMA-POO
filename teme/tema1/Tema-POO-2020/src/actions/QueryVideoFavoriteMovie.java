@@ -2,53 +2,19 @@ package actions;
 
 import fileio.*;
 import org.json.simple.JSONArray;
+import sortingstategies.SortingStrategyFactory;
 
 import java.io.IOException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class QueryVideoFavoriteMovie extends AbstractAction {
 
   public QueryVideoFavoriteMovie(
       Input input, ActionInputData actionInputData, Writer fileWriter, JSONArray arrayResult) {
     super(input, actionInputData, fileWriter, arrayResult);
-  }
-
-  private static HashMap sort(HashMap map) {
-    List list = new LinkedList(map.entrySet());
-    Collections.sort(
-        list,
-        new Comparator() {
-          public int compare(Object o1, Object o2) {
-            return ((Comparable) ((Map.Entry) (o1)).getValue())
-                .compareTo(((Map.Entry) (o2)).getValue());
-          }
-        });
-
-    HashMap sortedHashMap = new LinkedHashMap();
-    for (Iterator it = list.iterator(); it.hasNext(); ) {
-      Map.Entry entry = (Map.Entry) it.next();
-      sortedHashMap.put(entry.getKey(), entry.getValue());
-    }
-    return sortedHashMap;
-  }
-
-  private static HashMap sortdesc(HashMap map) {
-    List list = new LinkedList(map.entrySet());
-    Collections.sort(
-        list,
-        new Comparator() {
-          public int compare(Object o1, Object o2) {
-            return ((Comparable) ((Map.Entry) (o2)).getValue())
-                .compareTo(((Map.Entry) (o1)).getValue());
-          }
-        });
-
-    HashMap sortedHashMap = new LinkedHashMap();
-    for (Iterator it = list.iterator(); it.hasNext(); ) {
-      Map.Entry entry = (Map.Entry) it.next();
-      sortedHashMap.put(entry.getKey(), entry.getValue());
-    }
-    return sortedHashMap;
   }
 
   public StringBuilder executeCommand() {
@@ -102,9 +68,9 @@ public class QueryVideoFavoriteMovie extends AbstractAction {
 
     HashMap<String, Integer> sortedMap;
     if (super.getActionInputData().getSortType().compareTo("asc") == 0) {
-      sortedMap = sort(listMovies);
+      sortedMap = SortingStrategyFactory.createStrategy("asc").sortHashMap(listMovies);
     } else {
-      sortedMap = sortdesc(listMovies);
+      sortedMap = SortingStrategyFactory.createStrategy("desc").sortHashMap(listMovies);
     }
 
     ArrayList<Map.Entry<String, Integer>> auxList = new ArrayList<>();
@@ -112,9 +78,9 @@ public class QueryVideoFavoriteMovie extends AbstractAction {
       auxList.add(entry);
     }
     if (super.getActionInputData().getSortType().compareTo("asc") == 0) {
-      auxList = bubbleSortasc(auxList);
+      auxList = SortingStrategyFactory.createStrategy("asc").bubbleSortForInteger(auxList);
     } else {
-      auxList = bubbleSortdesc(auxList);
+      auxList = SortingStrategyFactory.createStrategy("desc").bubbleSortForInteger(auxList);
     }
 
     message.append("Query result: [");
@@ -135,40 +101,6 @@ public class QueryVideoFavoriteMovie extends AbstractAction {
     }
     message.append("]");
     return message;
-  }
-
-  ArrayList<Map.Entry<String, Integer>> bubbleSortasc(
-      ArrayList<Map.Entry<String, Integer>> auxList) {
-    int n = auxList.size();
-    for (int i = 0; i < n - 1; i++) {
-      for (int j = 0; j < n - i - 1; j++) {
-        if (auxList.get(j).getValue().compareTo(auxList.get(j + 1).getValue()) == 0) {
-          if (auxList.get(j).getKey().compareTo(auxList.get(j + 1).getKey()) > 0) {
-            Map.Entry<String, Integer> tmp = auxList.get(j);
-            auxList.set(j, auxList.get(j + 1));
-            auxList.set(j + 1, tmp);
-          }
-        }
-      }
-    }
-    return auxList;
-  }
-
-  ArrayList<Map.Entry<String, Integer>> bubbleSortdesc(
-      ArrayList<Map.Entry<String, Integer>> auxList) {
-    int n = auxList.size();
-    for (int i = 0; i < n - 1; i++) {
-      for (int j = 0; j < n - i - 1; j++) {
-        if (auxList.get(j).getValue().compareTo(auxList.get(j + 1).getValue()) == 0) {
-          if (auxList.get(j).getKey().compareTo(auxList.get(j + 1).getKey()) < 0) {
-            Map.Entry<String, Integer> tmp = auxList.get(j);
-            auxList.set(j, auxList.get(j + 1));
-            auxList.set(j + 1, tmp);
-          }
-        }
-      }
-    }
-    return auxList;
   }
 
   public void execute() throws IOException {

@@ -6,53 +6,18 @@ import fileio.Input;
 import fileio.SerialInputData;
 import fileio.Writer;
 import org.json.simple.JSONArray;
+import sortingstategies.SortingStrategyFactory;
 
 import java.io.IOException;
-import java.util.*;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class QueryVideoLongestShow extends AbstractAction {
 
   public QueryVideoLongestShow(
       Input input, ActionInputData actionInputData, Writer fileWriter, JSONArray arrayResult) {
     super(input, actionInputData, fileWriter, arrayResult);
-  }
-
-  private static HashMap sort(HashMap map) {
-    List list = new LinkedList(map.entrySet());
-    Collections.sort(
-        list,
-        new Comparator() {
-          public int compare(Object o1, Object o2) {
-            return ((Comparable) ((Map.Entry) (o1)).getValue())
-                .compareTo(((Map.Entry) (o2)).getValue());
-          }
-        });
-
-    HashMap sortedHashMap = new LinkedHashMap();
-    for (Iterator it = list.iterator(); it.hasNext(); ) {
-      Map.Entry entry = (Map.Entry) it.next();
-      sortedHashMap.put(entry.getKey(), entry.getValue());
-    }
-    return sortedHashMap;
-  }
-
-  private static HashMap sortdesc(HashMap map) {
-    List list = new LinkedList(map.entrySet());
-    Collections.sort(
-        list,
-        new Comparator() {
-          public int compare(Object o1, Object o2) {
-            return ((Comparable) ((Map.Entry) (o2)).getValue())
-                .compareTo(((Map.Entry) (o1)).getValue());
-          }
-        });
-
-    HashMap sortedHashMap = new LinkedHashMap();
-    for (Iterator it = list.iterator(); it.hasNext(); ) {
-      Map.Entry entry = (Map.Entry) it.next();
-      sortedHashMap.put(entry.getKey(), entry.getValue());
-    }
-    return sortedHashMap;
   }
 
   public StringBuilder executeCommand() {
@@ -98,9 +63,9 @@ public class QueryVideoLongestShow extends AbstractAction {
 
     HashMap<String, Integer> sortedMap;
     if (super.getActionInputData().getSortType().compareTo("asc") == 0) {
-      sortedMap = sort(listShows);
+      sortedMap = SortingStrategyFactory.createStrategy("asc").sortHashMap(listShows);
     } else {
-      sortedMap = sortdesc(listShows);
+      sortedMap = SortingStrategyFactory.createStrategy("desc").sortHashMap(listShows);
     }
 
     message.append("Query result: [");
