@@ -1,6 +1,10 @@
 package actions;
 
-import fileio.*;
+import fileio.ActionInputData;
+import fileio.Input;
+import fileio.MovieInputData;
+import fileio.UserInputData;
+import fileio.Writer;
 import org.json.simple.JSONArray;
 import sortingstategies.SortingStrategyFactory;
 
@@ -13,47 +17,44 @@ import java.util.Map;
 public class QueryVideoFavoriteMovie extends AbstractAction {
 
   public QueryVideoFavoriteMovie(
-      Input input, ActionInputData actionInputData, Writer fileWriter, JSONArray arrayResult) {
+      final Input input, final ActionInputData actionInputData,
+      final Writer fileWriter, final JSONArray arrayResult) {
     super(input, actionInputData, fileWriter, arrayResult);
   }
 
   public StringBuilder executeCommand() {
     StringBuilder message = new StringBuilder();
-    HashMap<String, Integer> listMovies = new HashMap<String, Integer>();
+    HashMap<String, Integer> listMovies = new HashMap<>();
     List<String> years = super.getActionInputData().getFilters().get(0);
     List<String> genres = super.getActionInputData().getFilters().get(1);
 
     for (MovieInputData movie : super.getInput().getMovies()) {
-      Boolean yearFlag = true;
-      Boolean genresFlag = false;
+      boolean yearFlag = true;
+      boolean genresFlag = false;
       if (years.get(0) != null) {
-        if (!(years.isEmpty())) {
-          for (String year : years) {
+        for (String year : years) {
 
-            if (year != null)
-              if (year.compareTo(String.valueOf(movie.getYear())) != 0) {
-                yearFlag = false;
-              }
-          }
-        }
-      } else {
-        yearFlag = true;
-      }
-      if (genres.get(0) != null) {
-        if (!genres.isEmpty()) {
-          for (String genre : genres) {
-            for (String movieGenre : movie.getGenres()) {
-              if (genre != null)
-                if (genre.compareTo(movieGenre) == 0) {
-                  genresFlag = true;
-                }
+          if (year != null) {
+            if (year.compareTo(String.valueOf(movie.getYear())) != 0) {
+              yearFlag = false;
             }
           }
         }
-      } else {
-        genresFlag = true;
       }
-      if (genresFlag == true && yearFlag == true) {
+      if (genres.get(0) == null) {
+        genresFlag = true;
+      } else {
+        for (String genre : genres) {
+          for (String movieGenre : movie.getGenres()) {
+            if (genre != null) {
+              if (genre.compareTo(movieGenre) == 0) {
+                genresFlag = true;
+              }
+            }
+          }
+        }
+      }
+      if (genresFlag && yearFlag) {
         listMovies.put(movie.getTitle(), 0);
       }
     }
@@ -61,7 +62,8 @@ public class QueryVideoFavoriteMovie extends AbstractAction {
     for (UserInputData user : super.getInput().getUsers()) {
       for (String favoriteMovie : user.getFavoriteMovies()) {
         if (listMovies.get(favoriteMovie) != null) {
-          listMovies.put(favoriteMovie, listMovies.get(favoriteMovie) + 1);
+          listMovies.
+                  put(favoriteMovie, listMovies.get(favoriteMovie) + 1);
         }
       }
     }
@@ -73,10 +75,7 @@ public class QueryVideoFavoriteMovie extends AbstractAction {
       sortedMap = SortingStrategyFactory.createStrategy("desc").sortHashMap(listMovies);
     }
 
-    ArrayList<Map.Entry<String, Integer>> auxList = new ArrayList<>();
-    for (Map.Entry<String, Integer> entry : sortedMap.entrySet()) {
-      auxList.add(entry);
-    }
+    ArrayList<Map.Entry<String, Integer>> auxList = new ArrayList<>(sortedMap.entrySet());
     if (super.getActionInputData().getSortType().compareTo("asc") == 0) {
       auxList = SortingStrategyFactory.createStrategy("asc").bubbleSortForInteger(auxList);
     } else {
@@ -85,7 +84,7 @@ public class QueryVideoFavoriteMovie extends AbstractAction {
 
     message.append("Query result: [");
     int i = 0;
-    Boolean added = false;
+    boolean added = false;
     for (Map.Entry<String, Integer> entry : auxList) {
       if (i < super.getActionInputData().getNumber()) {
         message.append(entry.getKey());
@@ -95,7 +94,7 @@ public class QueryVideoFavoriteMovie extends AbstractAction {
       i++;
     }
 
-    if (added == true) {
+    if (added) {
       message.deleteCharAt(message.length() - 1);
       message.deleteCharAt(message.length() - 1);
     }

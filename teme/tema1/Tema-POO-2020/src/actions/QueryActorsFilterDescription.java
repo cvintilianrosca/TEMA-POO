@@ -14,24 +14,26 @@ import java.util.List;
 public class QueryActorsFilterDescription extends AbstractAction {
 
   public QueryActorsFilterDescription(
-      Input input, ActionInputData actionInputData, Writer fileWriter, JSONArray arrayResult) {
+     final Input input, final ActionInputData actionInputData,
+     final Writer fileWriter, final JSONArray arrayResult) {
     super(input, actionInputData, fileWriter, arrayResult);
   }
 
   public StringBuilder executeCommand() {
     StringBuilder message = new StringBuilder();
     List<String> listFilterDescription = super.getActionInputData().getFilters().get(2);
-    List<String> listActors = new ArrayList<String>();
+    List<String> listActors = new ArrayList<>();
     for (ActorInputData actor : super.getInput().getActors()) {
-      Boolean flag = true;
+      boolean flag = true;
 
       for (String filter : listFilterDescription) {
         String description = actor.getCareerDescription().toLowerCase();
         if (!description.contains(filter)) {
           flag = false;
+          break;
         }
       }
-      if (flag == true) {
+      if (flag) {
         listActors.add(actor.getName());
       }
     }
@@ -39,7 +41,7 @@ public class QueryActorsFilterDescription extends AbstractAction {
       Collections.sort(listActors);
     }
     if (super.getActionInputData().getSortType().compareTo("desc") == 0) {
-      Collections.sort(listActors, Collections.reverseOrder());
+      listActors.sort(Collections.reverseOrder());
     }
     message.append("Query result: [");
     if (!listActors.isEmpty()) {

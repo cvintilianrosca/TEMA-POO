@@ -1,7 +1,10 @@
 package actions;
 
-import entertainment.Season;
-import fileio.*;
+import fileio.ActionInputData;
+import fileio.Input;
+import fileio.SerialInputData;
+import fileio.UserInputData;
+import fileio.Writer;
 import org.json.simple.JSONArray;
 import sortingstategies.SortingStrategyFactory;
 
@@ -13,7 +16,8 @@ import java.util.Map;
 public class QueryVideoFavoriteShow extends AbstractAction {
 
   public QueryVideoFavoriteShow(
-      Input input, ActionInputData actionInputData, Writer fileWriter, JSONArray arrayResult) {
+      final Input input, final ActionInputData actionInputData,
+      final Writer fileWriter, final JSONArray arrayResult) {
     super(input, actionInputData, fileWriter, arrayResult);
   }
 
@@ -21,38 +25,39 @@ public class QueryVideoFavoriteShow extends AbstractAction {
     StringBuilder message = new StringBuilder();
     List<String> years = super.getActionInputData().getFilters().get(0);
     List<String> genres = super.getActionInputData().getFilters().get(1);
-    HashMap<String, Integer> listShows = new HashMap<String, Integer>();
+    HashMap<String, Integer> listShows = new HashMap<>();
 
     for (SerialInputData show : super.getInput().getSerials()) {
-      Boolean yearFlag = true;
-      Boolean genresFlag = false;
+      boolean yearFlag = true;
+      boolean genresFlag = false;
 
-      if (!(years.isEmpty())) {
+      if (!years.isEmpty()) {
         for (String year : years) {
 
-          if (year != null)
+          if (year != null) {
             if (year.compareTo(String.valueOf(show.getYear())) != 0) {
               yearFlag = false;
             }
+          }
         }
       }
 
       if (!genres.isEmpty()) {
         for (String genre : genres) {
           for (String movieGenre : show.getGenres()) {
-            if (genre != null)
+            if (genre != null) {
               if (genre.compareTo(movieGenre) == 0) {
                 genresFlag = true;
                 //                            System.out.println(movie.getTitle());
                 break;
               }
+            }
           }
         }
       }
 
-      if (genresFlag == true && yearFlag == true) {
+      if (genresFlag && yearFlag) {
         if (!show.getSeasons().isEmpty()) {
-          Season aux = show.getSeasons().get(0);
           listShows.put(show.getTitle(), 0);
           // System.out.println(show.getTitle());
         }
@@ -67,15 +72,11 @@ public class QueryVideoFavoriteShow extends AbstractAction {
     }
 
     HashMap<String, Integer> sortedMap;
-    if (super.getActionInputData().getSortType().compareTo("asc") == 0) {
-      sortedMap = SortingStrategyFactory.createStrategy("asc").sortHashMap(listShows);
-    } else {
-      sortedMap = SortingStrategyFactory.createStrategy("asc").sortHashMap(listShows);
-    }
+    sortedMap = SortingStrategyFactory.createStrategy("asc").sortHashMap(listShows);
 
     message.append("Query result: [");
     int i = 0;
-    Boolean added = false;
+    boolean added = false;
     for (Map.Entry<String, Integer> entry : sortedMap.entrySet()) {
       if (i < super.getActionInputData().getNumber()) {
         if (entry.getValue() != 0) {
@@ -86,7 +87,7 @@ public class QueryVideoFavoriteShow extends AbstractAction {
       }
       i++;
     }
-    if (added == true) {
+    if (added) {
       message.deleteCharAt(message.length() - 1);
       message.deleteCharAt(message.length() - 1);
     }

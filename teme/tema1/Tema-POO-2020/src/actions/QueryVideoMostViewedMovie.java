@@ -1,6 +1,10 @@
 package actions;
 
-import fileio.*;
+import fileio.ActionInputData;
+import fileio.Input;
+import fileio.MovieInputData;
+import fileio.UserInputData;
+import fileio.Writer;
 import org.json.simple.JSONArray;
 import sortingstategies.SortingStrategyFactory;
 
@@ -13,36 +17,37 @@ import java.util.Map;
 public class QueryVideoMostViewedMovie extends AbstractAction {
 
   public QueryVideoMostViewedMovie(
-      Input input, ActionInputData actionInputData, Writer fileWriter, JSONArray arrayResult) {
+      final Input input, final ActionInputData actionInputData,
+      final Writer fileWriter, final JSONArray arrayResult) {
     super(input, actionInputData, fileWriter, arrayResult);
   }
 
   public StringBuilder executeCommand() {
 
     StringBuilder message = new StringBuilder();
-    HashMap<String, Integer> listMovies = new HashMap<String, Integer>();
+    HashMap<String, Integer> listMovies = new HashMap<>();
     List<String> years = super.getActionInputData().getFilters().get(0);
     List<String> genres = super.getActionInputData().getFilters().get(1);
 
     for (MovieInputData movie : super.getInput().getMovies()) {
-      Boolean yearFlag = true;
-      Boolean genresFlag = false;
+      boolean yearFlag = true;
+      boolean genresFlag = false;
 
       if (years.get(0) != null) {
         for (String year : years) {
           if (year.compareTo(String.valueOf(movie.getYear())) != 0) {
             yearFlag = false;
+            break;
           }
         }
-      } else {
-        //                System.out.println("sds");
-        yearFlag = true;
-      }
+      }  //                System.out.println("sds");
+
       if (genres.get(0) != null) {
         for (String genre : genres) {
           for (String movieGenre : movie.getGenres()) {
             if (genre.compareTo(movieGenre) == 0) {
               genresFlag = true;
+              break;
             }
           }
         }
@@ -52,7 +57,7 @@ public class QueryVideoMostViewedMovie extends AbstractAction {
         genresFlag = true;
       }
       //            System.out.println(movie.getTitle());
-      if (genresFlag == true && yearFlag == true) {
+      if (genresFlag && yearFlag) {
         listMovies.put(movie.getTitle(), 0);
       }
     }
@@ -72,11 +77,8 @@ public class QueryVideoMostViewedMovie extends AbstractAction {
       sortedMap = SortingStrategyFactory.createStrategy("desc").sortHashMap(listMovies);
     }
 
-    ArrayList<Map.Entry<String, Integer>> auxList = new ArrayList<>();
-    for (Map.Entry<String, Integer> entry : sortedMap.entrySet()) {
-      //         System.out.println(entry.getKey()); System.out.println(entry.getValue());
-      auxList.add(entry);
-    }
+    //         System.out.println(entry.getKey()); System.out.println(entry.getValue());
+    ArrayList<Map.Entry<String, Integer>> auxList = new ArrayList<>(sortedMap.entrySet());
     //            System.out.println("kikiki");
     if (super.getActionInputData().getSortType().compareTo("asc") == 0) {
       auxList = SortingStrategyFactory.createStrategy("asc").bubbleSortForInteger(auxList);
@@ -86,7 +88,7 @@ public class QueryVideoMostViewedMovie extends AbstractAction {
 
     message.append("Query result: [");
     int i = 0;
-    Boolean added = false;
+    boolean added = false;
     for (Map.Entry<String, Integer> entry : auxList) {
       if (i < super.getActionInputData().getNumber()) {
         if (entry.getValue() != 0) {
@@ -98,7 +100,7 @@ public class QueryVideoMostViewedMovie extends AbstractAction {
       i++;
     }
 
-    if (added == true) {
+    if (added) {
       message.deleteCharAt(message.length() - 1);
       message.deleteCharAt(message.length() - 1);
     }

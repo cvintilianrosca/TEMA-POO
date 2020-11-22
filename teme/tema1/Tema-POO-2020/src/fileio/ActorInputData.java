@@ -18,7 +18,7 @@ public final class ActorInputData {
   /** videos starring actor */
   private ArrayList<String> filmography;
   /** awards won by the actor */
-  private Map<ActorsAwards, Integer> awards;
+  private final Map<ActorsAwards, Integer> awards;
 
   public ActorInputData(
       final String name,

@@ -15,7 +15,8 @@ import java.util.Map;
 public class QueryUserRatings extends AbstractAction {
 
   public QueryUserRatings(
-      Input input, ActionInputData actionInputData, Writer fileWriter, JSONArray arrayResult) {
+      final Input input, final ActionInputData actionInputData,
+      final Writer fileWriter, final JSONArray arrayResult) {
     super(input, actionInputData, fileWriter, arrayResult);
   }
 
@@ -25,7 +26,7 @@ public class QueryUserRatings extends AbstractAction {
 
     for (UserInputData user : super.getInput().getUsers()) {
       int counter = 0;
-      for (Map.Entry<String, Float> rating : user.getMovieRatings().entrySet()) {
+      for (Map.Entry<String, Float> ignored : user.getMovieRatings().entrySet()) {
         counter++;
       }
       counter += user.getShowRatingsArrayList().size();
@@ -41,10 +42,7 @@ public class QueryUserRatings extends AbstractAction {
       sortedMap = SortingStrategyFactory.createStrategy("desc").sortHashMap(usersList);
     }
 
-    ArrayList<Map.Entry<String, Integer>> auxList = new ArrayList<>();
-    for (Map.Entry<String, Integer> entry : sortedMap.entrySet()) {
-      auxList.add(entry);
-    }
+    ArrayList<Map.Entry<String, Integer>> auxList = new ArrayList<>(sortedMap.entrySet());
 
     if (super.getActionInputData().getSortType().compareTo("asc") == 0) {
       auxList = SortingStrategyFactory.createStrategy("asc").bubbleSortForInteger(auxList);
@@ -56,7 +54,7 @@ public class QueryUserRatings extends AbstractAction {
 
     message.append("Query result: [");
     int i = 0;
-    Boolean added = false;
+    boolean added = false;
     for (Map.Entry<String, Integer> entry : auxList) {
       if (i < super.getActionInputData().getNumber()) {
         message.append(entry.getKey());
@@ -66,7 +64,7 @@ public class QueryUserRatings extends AbstractAction {
       i++;
     }
 
-    if (added == true) {
+    if (added) {
       message.deleteCharAt(message.length() - 1);
       message.deleteCharAt(message.length() - 1);
     }

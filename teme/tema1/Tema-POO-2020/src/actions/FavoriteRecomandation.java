@@ -13,14 +13,15 @@ import java.util.Map;
 public class FavoriteRecomandation extends AbstractAction {
 
   public FavoriteRecomandation(
-      Input input, ActionInputData actionInputData, Writer fileWriter, JSONArray arrayResult) {
+      final Input input, final ActionInputData actionInputData,
+      final Writer fileWriter, final JSONArray arrayResult) {
     super(input, actionInputData, fileWriter, arrayResult);
   }
 
   public StringBuilder executeCommand() {
     String username = super.getActionInputData().getUsername();
     StringBuilder message = new StringBuilder();
-    HashMap<String, Integer> FavoritesMovie = new HashMap<String, Integer>();
+    HashMap<String, Integer> FavoritesMovie = new HashMap<>();
     UserInputData auxuser = null;
     for (UserInputData user : super.getInput().getUsers()) {
       if (user.getUsername().compareTo(username) == 0) {
@@ -31,19 +32,16 @@ public class FavoriteRecomandation extends AbstractAction {
         }
       }
       for (String movie : user.getFavoriteMovies()) {
-        if (FavoritesMovie.get(movie) == null) {
-          FavoritesMovie.put(movie, 1);
-        } else {
-          FavoritesMovie.put(movie, (FavoritesMovie.get(movie) + 1));
-        }
+        FavoritesMovie.merge(movie, 1, Integer::sum);
       }
     }
 
     int max = 0;
     String aux = null;
     for (Map.Entry<String, Integer> entry : FavoritesMovie.entrySet()) {
-      Boolean flag = false;
+      boolean flag = false;
 
+      assert auxuser != null;
       for (String movie : auxuser.getFavoriteMovies()) {
         if (movie.compareTo(entry.getKey()) == 0) {
           flag = true;
@@ -52,7 +50,7 @@ public class FavoriteRecomandation extends AbstractAction {
       }
 
       if (max < entry.getValue()
-          && flag == false
+          && !flag
           && auxuser.getHistory().get(entry.getKey()) == null) {
         max = entry.getValue();
         aux = entry.getKey();

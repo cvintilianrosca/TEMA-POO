@@ -1,6 +1,11 @@
 package actions;
 
-import fileio.*;
+import fileio.ActionInputData;
+import fileio.Input;
+import fileio.MovieInputData;
+import fileio.SerialInputData;
+import fileio.UserInputData;
+import fileio.Writer;
 import org.json.simple.JSONArray;
 
 import java.io.IOException;
@@ -11,17 +16,18 @@ import java.util.Map;
 
 public class Search extends AbstractAction {
 
-  HashMap<String, Double> listMovies = new HashMap<String, Double>();
+  HashMap<String, Double> listMovies = new HashMap<>();
 
   public Search(
-      Input input, ActionInputData actionInputData, Writer fileWriter, JSONArray arrayResult) {
+      final Input input, final ActionInputData actionInputData,
+      final Writer fileWriter, final JSONArray arrayResult) {
     super(input, actionInputData, fileWriter, arrayResult);
   }
 
   public StringBuilder executeCommand() {
     StringBuilder message = new StringBuilder();
     String username = super.getActionInputData().getUsername();
-    Boolean flag = false;
+    boolean flag = false;
     for (UserInputData user : super.getInput().getUsers()) {
       if (user.getUsername().compareTo(username) == 0) {
         for (MovieInputData movie : super.getInput().getMovies()) {
@@ -29,7 +35,7 @@ public class Search extends AbstractAction {
             if (genre.compareTo(super.getActionInputData().getGenre()) == 0) {
               flag = true;
               if (user.getHistory().get(movie.getTitle()) == null) {
-                listMovies.put(movie.getTitle(), (double) movie.getTotalRating());
+                listMovies.put(movie.getTitle(), movie.getTotalRating());
               }
             }
           }
@@ -47,7 +53,7 @@ public class Search extends AbstractAction {
         }
       }
     }
-    if (flag == false || listMovies.isEmpty()) {
+    if (!flag || listMovies.isEmpty()) {
       message.append("SearchRecommendation cannot be applied!");
       return message;
     }

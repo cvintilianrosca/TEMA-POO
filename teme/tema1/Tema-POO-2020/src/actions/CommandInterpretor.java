@@ -9,11 +9,12 @@ import java.io.IOException;
 import java.util.List;
 
 public class CommandInterpretor {
-  private Input input;
-  private Writer fileWriter;
-  private JSONArray arrayResult;
+  private final Input input;
+  private final Writer fileWriter;
+  private final JSONArray arrayResult;
 
-  public CommandInterpretor(Input input, Writer fileWriter, JSONArray arrayResult) {
+  public CommandInterpretor(final Input input, final Writer fileWriter,
+                            final JSONArray arrayResult) {
     this.input = input;
     this.fileWriter = fileWriter;
     this.arrayResult = arrayResult;
@@ -39,7 +40,7 @@ public class CommandInterpretor {
           new Standard(input, data, fileWriter, arrayResult).execute();
         }
         if (data.getType().compareTo("best_unseen") == 0) {
-          new Best_unseen(input, data, fileWriter, arrayResult).execute();
+          new BestUnseen(input, data, fileWriter, arrayResult).execute();
         }
         if (data.getType().compareTo("favorite") == 0
             && data.getActionType().compareTo("recommendation") == 0) {

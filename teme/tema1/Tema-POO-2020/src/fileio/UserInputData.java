@@ -20,7 +20,7 @@ public final class UserInputData {
   private final ArrayList<String> favoriteMovies;
 
   private final ArrayList<showRatings> showRatingsArrayList = new ArrayList<>();
-  private final Map<String, Float> movieRatings = new HashMap<String, Float>();
+  private final Map<String, Float> movieRatings = new HashMap<>();
 
   public UserInputData(
       final String username,
@@ -73,17 +73,13 @@ public final class UserInputData {
         + '}';
   }
 
-  public class showRatings {
-    private String Title;
-    private Map<Integer, Float> seasonRatings = new HashMap<Integer, Float>();
+  public static class showRatings {
+    private String title;
+    private final Map<Integer, Float> seasonRatings = new HashMap<>();
 
-    public showRatings(String Title, int season, float rating) {
-      this.Title = Title;
+    public showRatings(String title, final int season, final float rating) {
+      this.title = title;
       this.seasonRatings.put(season, rating);
-    }
-
-    public void putSeasonRatings(int season, float seasonRatings) {
-      this.seasonRatings.put(season, seasonRatings);
     }
 
     public Map<Integer, Float> getSeasonRatings() {
@@ -91,11 +87,11 @@ public final class UserInputData {
     }
 
     public String getTitle() {
-      return Title;
+      return title;
     }
 
     public void setTitle(String title) {
-      Title = title;
+      this.title = title;
     }
   }
 }

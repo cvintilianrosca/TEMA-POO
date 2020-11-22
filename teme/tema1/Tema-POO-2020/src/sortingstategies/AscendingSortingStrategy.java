@@ -1,25 +1,25 @@
 package sortingstategies;
 
-import java.util.*;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
 
 public class AscendingSortingStrategy implements SortingStrategy {
 
 
     @Override
-    public HashMap sortHashMap(HashMap map) {
-        List list = new LinkedList(map.entrySet());
-        Collections.sort(
-                list,
-                new Comparator() {
-                    public int compare(Object o1, Object o2) {
-                        return ((Comparable) ((Map.Entry) (o1)).getValue())
-                                .compareTo(((Map.Entry) (o2)).getValue());
-                    }
-                });
+    public HashMap sortHashMap(final HashMap map) {
+        List<Map.Entry> list;
+        list = new LinkedList<Map.Entry>(map.entrySet());
+        list.sort((o1, o2) -> ((Comparable) o1.getValue())
+                .compareTo(o2.getValue()));
 
-        HashMap sortedHashMap = new LinkedHashMap();
-        for (Iterator it = list.iterator(); it.hasNext(); ) {
-            Map.Entry entry = (Map.Entry) it.next();
+        HashMap<Object, Object> sortedHashMap = new LinkedHashMap<>();
+        for (Map.Entry entry : list) {
             sortedHashMap.put(entry.getKey(), entry.getValue());
         }
         return sortedHashMap;
@@ -27,7 +27,8 @@ public class AscendingSortingStrategy implements SortingStrategy {
     }
 
     @Override
-    public ArrayList<Map.Entry<String, Double>> bubbleSortForDouble(ArrayList<Map.Entry<String, Double>> auxList) {
+    public ArrayList<Map.Entry<String, Double>>
+    bubbleSortForDouble(final ArrayList<Map.Entry<String, Double>> auxList) {
         int n = auxList.size();
         for (int i = 0; i < n - 1; i++) {
             for (int j = 0; j < n - i - 1; j++) {
@@ -44,7 +45,8 @@ public class AscendingSortingStrategy implements SortingStrategy {
     }
 
     @Override
-    public ArrayList<Map.Entry<String, Integer>> bubbleSortForInteger(ArrayList<Map.Entry<String, Integer>> auxList) {
+    public ArrayList<Map.Entry<String, Integer>>
+    bubbleSortForInteger(final ArrayList<Map.Entry<String, Integer>> auxList) {
         int n = auxList.size();
         for (int i = 0; i < n - 1; i++) {
             for (int j = 0; j < n - i - 1; j++) {
@@ -61,7 +63,8 @@ public class AscendingSortingStrategy implements SortingStrategy {
     }
 
     @Override
-    public ArrayList<Map.Entry<String, Float>> bubbleSortForFLoat(ArrayList<Map.Entry<String, Float>> auxList) {
+    public ArrayList<Map.Entry<String, Float>>
+    bubbleSortForFLoat(final ArrayList<Map.Entry<String, Float>> auxList) {
         int n = auxList.size();
         for (int i = 0; i < n - 1; i++) {
             for (int j = 0; j < n - i - 1; j++) {

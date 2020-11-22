@@ -12,14 +12,15 @@ import java.util.Map;
 public class Popular extends AbstractAction {
 
   public Popular(
-      Input input, ActionInputData actionInputData, Writer fileWriter, JSONArray arrayResult) {
+     final Input input, final ActionInputData actionInputData,
+     final Writer fileWriter, final JSONArray arrayResult) {
     super(input, actionInputData, fileWriter, arrayResult);
   }
 
   public StringBuilder executeCommand() {
     String username = super.getActionInputData().getUsername();
     StringBuilder message = new StringBuilder();
-    HashMap<String, Integer> genresViews = new HashMap<String, Integer>();
+    HashMap<String, Integer> genresViews = new HashMap<>();
     UserInputData userAux = null;
 
     for (UserInputData user : super.getInput().getUsers()) {
@@ -57,16 +58,15 @@ public class Popular extends AbstractAction {
     }
     SortingStrategy sortingStrategy = SortingStrategyFactory.createStrategy("desc");
     HashMap<String, Integer> sortedGenreViews = sortingStrategy.sortHashMap(genresViews);
-    boolean flag = false;
     for (Map.Entry<String, Integer> entry : sortedGenreViews.entrySet()) {
 
       for (MovieInputData movie : super.getInput().getMovies()) {
         for (String genre : movie.getGenres()) {
           if (genre.compareTo(entry.getKey()) == 0) {
+            assert userAux != null;
             if (userAux.getHistory().get(movie.getTitle()) == null) {
               message.append("PopularRecommendation result: ");
               message.append(movie.getTitle());
-              flag = true;
               return message;
             }
           }
@@ -77,10 +77,10 @@ public class Popular extends AbstractAction {
       for (SerialInputData serial : super.getInput().getSerials()) {
         for (String genre : serial.getGenres()) {
           if (genre.compareTo(entry.getKey()) == 0) {
+            assert userAux != null;
             if (userAux.getHistory().get(serial.getTitle()) == null) {
               message.append("PopularRecommendation result: ");
               message.append(serial.getTitle());
-              flag = true;
               return message;
             }
           }
@@ -88,9 +88,7 @@ public class Popular extends AbstractAction {
       }
     }
 
-    if (flag == false) {
-      message.append("PopularRecommendation cannot be applied!");
-    }
+    message.append("PopularRecommendation cannot be applied!");
     return message;
   }
 

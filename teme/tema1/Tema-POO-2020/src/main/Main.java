@@ -19,7 +19,9 @@ import java.util.Objects;
 /** The entry point to this homework. It runs the checker that tests your implentation. */
 public final class Main {
   /** for coding style */
-  private Main() {}
+  private Main() {
+
+  }
 
   /**
    * Call the main checker and the coding style checker

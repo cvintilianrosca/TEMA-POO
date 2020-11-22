@@ -1,6 +1,10 @@
 package actions;
 
-import fileio.*;
+import fileio.ActionInputData;
+import fileio.Input;
+import fileio.MovieInputData;
+import fileio.SerialInputData;
+import fileio.Writer;
 import org.json.simple.JSONArray;
 import sortingstategies.SortingStrategyFactory;
 
@@ -12,13 +16,14 @@ import java.util.Map;
 public class QueryActorsAverageRatings extends AbstractAction {
 
   public QueryActorsAverageRatings(
-      Input input, ActionInputData actionInputData, Writer fileWriter, JSONArray arrayResult) {
+      final Input input, final ActionInputData actionInputData,
+      final Writer fileWriter, final JSONArray arrayResult) {
     super(input, actionInputData, fileWriter, arrayResult);
   }
 
   public StringBuilder executeCommand() {
     StringBuilder message = new StringBuilder();
-    HashMap<String, ArrayList<Double>> actorsList = new HashMap<String, ArrayList<Double>>();
+    HashMap<String, ArrayList<Double>> actorsList = new HashMap<>();
 
     for (MovieInputData movie : super.getInput().getMovies()) {
       for (String actor : movie.getCast()) {
@@ -62,8 +67,12 @@ public class QueryActorsAverageRatings extends AbstractAction {
             counter++;
           }
         }
-        if (counter != 0) sum = sum / counter;
-        if (sum != 0) finalListActors.put(entry.getKey(), sum);
+        if (counter != 0) {
+          sum = sum / counter;
+        }
+        if (sum != 0) {
+          finalListActors.put(entry.getKey(), sum);
+        }
       }
     }
 
@@ -74,8 +83,7 @@ public class QueryActorsAverageRatings extends AbstractAction {
       sortedMap = SortingStrategyFactory.createStrategy("desc").sortHashMap(finalListActors);
     }
 
-    ArrayList<Map.Entry<String, Double>> auxList = new ArrayList<>();
-    auxList.addAll(sortedMap.entrySet());
+    ArrayList<Map.Entry<String, Double>> auxList = new ArrayList<>(sortedMap.entrySet());
     if (super.getActionInputData().getSortType().compareTo("asc") == 0) {
       auxList = SortingStrategyFactory.createStrategy("asc").bubbleSortForDouble(auxList);
     } else {
@@ -84,7 +92,7 @@ public class QueryActorsAverageRatings extends AbstractAction {
 
     message.append("Query result: [");
     int i = 0;
-    Boolean added = false;
+    boolean added = false;
     for (Map.Entry<String, Double> entry : auxList) {
       if (i < super.getActionInputData().getNumber()) {
         message.append(entry.getKey());
@@ -93,7 +101,7 @@ public class QueryActorsAverageRatings extends AbstractAction {
       }
       i++;
     }
-    if (added == true) {
+    if (added) {
       message.deleteCharAt(message.length() - 1);
       message.deleteCharAt(message.length() - 1);
     }

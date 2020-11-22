@@ -11,7 +11,7 @@ public final class MovieInputData extends ShowInput {
   /** Duration in minutes of a season */
   private final int duration;
 
-  private ArrayList<Double> ratingList;
+  private final ArrayList<Double> ratingList;
 
   public MovieInputData(
       final String title,
@@ -21,7 +21,7 @@ public final class MovieInputData extends ShowInput {
       final int duration) {
     super(title, year, cast, genres);
     this.duration = duration;
-    this.ratingList = new ArrayList<Double>();
+    this.ratingList = new ArrayList<>();
   }
 
   public int getDuration() {

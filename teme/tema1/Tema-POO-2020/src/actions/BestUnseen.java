@@ -1,6 +1,11 @@
 package actions;
 
-import fileio.*;
+
+import fileio.ActionInputData;
+import fileio.Input;
+import fileio.MovieInputData;
+import fileio.UserInputData;
+import fileio.Writer;
 import org.json.simple.JSONArray;
 import sortingstategies.SortingStrategy;
 import sortingstategies.SortingStrategyFactory;
@@ -9,10 +14,11 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Best_unseen extends AbstractAction {
+public class BestUnseen extends AbstractAction {
 
-  public Best_unseen(
-      Input input, ActionInputData actionInputData, Writer fileWriter, JSONArray arrayResult) {
+  public BestUnseen(
+         final Input input, final ActionInputData actionInputData,
+         final Writer fileWriter, final JSONArray arrayResult) {
     super(input, actionInputData, fileWriter, arrayResult);
   }
 
@@ -32,7 +38,7 @@ public class Best_unseen extends AbstractAction {
             if (movie.getTotalRating() != 0.0) {
               flagnonzero = true;
             }
-            if (check == false) {
+            if (!check) {
               if (movie.getTotalRating() == 0) {
                 aux = movie.getTitle();
                 check = true;
@@ -44,12 +50,12 @@ public class Best_unseen extends AbstractAction {
       }
     }
     System.out.println();
-    if (flag == false) {
+    if (!flag) {
       message.append("BestRatedUnseenRecommendation cannot be applied!");
       return message;
 
     } else {
-      if (flagnonzero == false) {
+      if (!flagnonzero) {
         message.append("BestRatedUnseenRecommendation result: ");
         message.append(aux);
         return message;

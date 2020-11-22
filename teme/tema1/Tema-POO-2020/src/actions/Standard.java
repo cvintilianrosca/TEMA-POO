@@ -1,6 +1,10 @@
 package actions;
 
-import fileio.*;
+import fileio.ActionInputData;
+import fileio.Input;
+import fileio.MovieInputData;
+import fileio.UserInputData;
+import fileio.Writer;
 import org.json.simple.JSONArray;
 
 import java.io.IOException;
@@ -8,14 +12,14 @@ import java.io.IOException;
 public class Standard extends AbstractAction {
 
   public Standard(
-      Input input, ActionInputData actionInputData, Writer fileWriter, JSONArray arrayResult) {
+      final Input input, final ActionInputData actionInputData,
+      final Writer fileWriter, final JSONArray arrayResult) {
     super(input, actionInputData, fileWriter, arrayResult);
   }
 
   public StringBuilder executeCommand() {
     StringBuilder message = new StringBuilder();
     String username = super.getActionInputData().getUsername();
-    boolean flag = false;
     for (UserInputData user : super.getInput().getUsers()) {
       if (user.getUsername().compareTo(username) == 0) {
 
@@ -23,15 +27,12 @@ public class Standard extends AbstractAction {
           if (user.getHistory().get(movie.getTitle()) == null) {
             message.append("StandardRecommendation result: ");
             message.append(movie.getTitle());
-            flag = true;
             return message;
           }
         }
       }
     }
-    if (flag == false) {
-      message.append("StandardRecommendation cannot be applied!");
-    }
+    message.append("StandardRecommendation cannot be applied!");
     return message;
   }
 

@@ -1,6 +1,11 @@
 package actions;
 
-import fileio.*;
+import fileio.ActionInputData;
+import fileio.Input;
+import fileio.MovieInputData;
+import fileio.SerialInputData;
+import fileio.UserInputData;
+import fileio.Writer;
 import org.json.simple.JSONArray;
 
 import java.io.IOException;
@@ -8,7 +13,8 @@ import java.io.IOException;
 public class Rating extends AbstractAction {
 
   public Rating(
-      Input input, ActionInputData actionInputData, Writer fileWriter, JSONArray arrayResult) {
+      final Input input, final ActionInputData actionInputData,
+      final Writer fileWriter, final JSONArray arrayResult) {
     super(input, actionInputData, fileWriter, arrayResult);
   }
 
@@ -49,7 +55,7 @@ public class Rating extends AbstractAction {
 
         } else {
           if (user.getHistory().get(super.getActionInputData().getTitle()) != null) {
-            Boolean flag = false;
+            boolean flag = false;
             if (!(user.getShowRatingsArrayList().isEmpty())) {
               // System.out.println("Abracadabra");
               for (UserInputData.showRatings showRating : user.getShowRatingsArrayList()) {
@@ -67,10 +73,9 @@ public class Rating extends AbstractAction {
                     message.append(super.getActionInputData().getTitle());
                     message.append(" has been already rated");
                   } else {
-                    // System.out.println("AAAAAAAAAA");
+
                     for (SerialInputData serial : super.getInput().getSerials()) {
                       if (serial.getTitle().compareTo(super.getActionInputData().getTitle()) == 0) {
-                        // System.out.println("AAAAAAAAAAA");
                         serial
                             .getSeasons()
                             .get(super.getActionInputData().getSeasonNumber() - 1)
@@ -94,7 +99,7 @@ public class Rating extends AbstractAction {
               }
             }
 
-            if (flag == false) {
+            if (!flag) {
               // System.out.println("ahaha");
               for (SerialInputData serial : super.getInput().getSerials()) {
                 if (serial.getTitle().compareTo(super.getActionInputData().getTitle()) == 0) {
@@ -106,11 +111,10 @@ public class Rating extends AbstractAction {
                 }
               }
               UserInputData.showRatings newRating =
-                  user
-                  .new showRatings(
-                      super.getActionInputData().getTitle(),
-                      super.getActionInputData().getSeasonNumber(),
-                      (float) super.getActionInputData().getGrade());
+                      new UserInputData.showRatings(
+                              super.getActionInputData().getTitle(),
+                              super.getActionInputData().getSeasonNumber(),
+                              (float) super.getActionInputData().getGrade());
               user.getShowRatingsArrayList().add(newRating);
               message.append("success -> ");
               message.append(super.getActionInputData().getTitle());

@@ -12,7 +12,8 @@ import java.util.List;
 public class Favorite extends AbstractAction {
 
   public Favorite(
-      Input input, ActionInputData actionInputData, Writer fileWriter, JSONArray arrayResult) {
+      final Input input, final ActionInputData actionInputData,
+      final Writer fileWriter, final JSONArray arrayResult) {
     super(input, actionInputData, fileWriter, arrayResult);
   }
 
@@ -20,7 +21,6 @@ public class Favorite extends AbstractAction {
     StringBuilder message = new StringBuilder();
     String username = super.getActionInputData().getUsername();
     List<UserInputData> usersList = super.getInput().getUsers();
-    Boolean flag = false;
     if (!usersList.isEmpty()) {
       for (UserInputData userInputData : usersList) {
         if (userInputData.getUsername().compareTo(username) == 0) {
@@ -36,16 +36,13 @@ public class Favorite extends AbstractAction {
                 message.append("error -> ");
                 message.append(super.getActionInputData().getTitle());
                 message.append(" is already in favourite list");
-                flag = true;
                 return message;
               }
             }
-            if (flag == false) {
-              userInputData.getFavoriteMovies().add(super.getActionInputData().getTitle());
-              message.append("success -> ");
-              message.append(super.getActionInputData().getTitle());
-              message.append(" was added as favourite");
-            }
+            userInputData.getFavoriteMovies().add(super.getActionInputData().getTitle());
+            message.append("success -> ");
+            message.append(super.getActionInputData().getTitle());
+            message.append(" was added as favourite");
           }
         }
       }

@@ -8,13 +8,14 @@ import org.json.simple.JSONArray;
 import java.io.IOException;
 
 public abstract class AbstractAction {
-  private Input input;
-  private ActionInputData actionInputData;
-  private Writer fileWriter;
-  private JSONArray arrayResult;
+  private final Input input;
+  private final ActionInputData actionInputData;
+  private final Writer fileWriter;
+  private final JSONArray arrayResult;
 
   public AbstractAction(
-      Input input, ActionInputData actionInputData, Writer fileWriter, JSONArray arrayResult) {
+     final Input input, final ActionInputData actionInputData,
+     final Writer fileWriter, final JSONArray arrayResult) {
     this.input = input;
     this.actionInputData = actionInputData;
     this.fileWriter = fileWriter;
