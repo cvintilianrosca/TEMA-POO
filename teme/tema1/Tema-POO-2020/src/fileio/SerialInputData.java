@@ -32,6 +32,25 @@ public final class SerialInputData extends ShowInput {
         return numberOfSeasons;
     }
 
+    public double getTotalRatings(){
+        double result=0;
+        double sum=0;
+        for (Season season: seasons) {
+            for (double rating :season.getRatings()) {
+                sum+=rating;
+            }
+            if (season.getRatings().size()!= 0) {
+                sum /= season.getRatings().size();
+            }
+            result+=sum;
+            sum=0;
+        }
+        if (numberOfSeasons != 0){
+        result /=numberOfSeasons;
+        }
+        return result;
+    }
+
     public ArrayList<Season> getSeasons() {
         return seasons;
     }

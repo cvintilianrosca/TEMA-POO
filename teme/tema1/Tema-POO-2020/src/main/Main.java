@@ -1,8 +1,10 @@
 package main;
 
+import actions.CommandInterpretor;
 import checker.Checkstyle;
 import checker.Checker;
 import common.Constants;
+import fileio.ActionInputData;
 import fileio.Input;
 import fileio.InputLoader;
 import fileio.Writer;
@@ -70,8 +72,9 @@ public final class Main {
         Writer fileWriter = new Writer(filePath2);
         JSONArray arrayResult = new JSONArray();
 
-        //TODO add here the entry point to your implementation
+        CommandInterpretor commandInterpretor = new CommandInterpretor(input,fileWriter,arrayResult);
 
+        commandInterpretor.interpretCommands();
         fileWriter.closeJSON(arrayResult);
     }
 }

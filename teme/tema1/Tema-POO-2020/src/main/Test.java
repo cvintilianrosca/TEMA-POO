@@ -1,7 +1,6 @@
 package main;
 
 import common.Constants;
-
 import java.io.File;
 import java.io.IOException;
 import java.util.Arrays;
