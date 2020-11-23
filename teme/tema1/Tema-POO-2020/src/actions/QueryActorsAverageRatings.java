@@ -90,9 +90,9 @@ public class QueryActorsAverageRatings extends AbstractAction {
 
     ArrayList<Map.Entry<String, Double>> auxList = new ArrayList<>(sortedMap.entrySet());
     if (super.getActionInputData().getSortType().compareTo("asc") == 0) {
-      auxList = SortingStrategyFactory.createStrategy("asc").bubbleSortForDouble(auxList);
+      auxList = SortingStrategyFactory.createStrategy("asc").sortForDouble(auxList);
     } else {
-      auxList = SortingStrategyFactory.createStrategy("desc").bubbleSortForDouble(auxList);
+      auxList = SortingStrategyFactory.createStrategy("desc").sortForDouble(auxList);
     }
 
     message.append("Query result: [");

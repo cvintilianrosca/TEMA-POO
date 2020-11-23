@@ -17,7 +17,7 @@ public interface SortingStrategy {
    *
    * <p>DO NOT MODIFY
    */
-  ArrayList<Map.Entry<String, Double>> bubbleSortForDouble(
+  ArrayList<Map.Entry<String, Double>> sortForDouble(
       ArrayList<Map.Entry<String, Double>> auxList);
   /**
    * Function that sort a list with
@@ -25,7 +25,7 @@ public interface SortingStrategy {
    *
    * <p>DO NOT MODIFY
    */
-  ArrayList<Map.Entry<String, Integer>> bubbleSortForInteger(
+  ArrayList<Map.Entry<String, Integer>> sortForInteger(
       ArrayList<Map.Entry<String, Integer>> auxList);
   /**
    * Function that sort a list with
@@ -33,7 +33,7 @@ public interface SortingStrategy {
    *
    * <p>DO NOT MODIFY
    */
-  ArrayList<Map.Entry<String, Float>> bubbleSortForFLoat(
+  ArrayList<Map.Entry<String, Float>> sortForFLoat(
       ArrayList<Map.Entry<String, Float>> auxList);
 
     }

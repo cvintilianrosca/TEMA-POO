@@ -72,9 +72,9 @@ public class QueryVideoRatingMovie extends AbstractAction {
 
     ArrayList<Map.Entry<String, Float>> auxList = new ArrayList<>(sortedMap.entrySet());
     if (super.getActionInputData().getSortType().compareTo("asc") == 0) {
-      auxList = SortingStrategyFactory.createStrategy("asc").bubbleSortForFLoat(auxList);
+      auxList = SortingStrategyFactory.createStrategy("asc").sortForFLoat(auxList);
     } else {
-      auxList = SortingStrategyFactory.createStrategy("desc").bubbleSortForFLoat(auxList);
+      auxList = SortingStrategyFactory.createStrategy("desc").sortForFLoat(auxList);
     }
 
     message.append("Query result: [");

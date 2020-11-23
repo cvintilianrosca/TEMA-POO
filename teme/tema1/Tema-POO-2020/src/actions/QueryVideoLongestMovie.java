@@ -78,7 +78,7 @@ public class QueryVideoLongestMovie extends AbstractAction {
     //         System.out.println(entry.getKey()); System.out.println(entry.getValue());
     ArrayList<Map.Entry<String, Integer>> auxList = new ArrayList<>(sortedMap.entrySet());
     //            System.out.println("kikiki");
-    auxList = SortingStrategyFactory.createStrategy("asc").bubbleSortForInteger(auxList);
+    auxList = SortingStrategyFactory.createStrategy("asc").sortForInteger(auxList);
 
     var append = message.append("Query result: [");
     var i = 0;

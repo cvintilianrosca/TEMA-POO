@@ -86,9 +86,9 @@ public class QueryVideoMostViewedMovie extends AbstractAction {
     ArrayList<Map.Entry<String, Integer>> auxList = new ArrayList<>(sortedMap.entrySet());
     //            System.out.println("kikiki");
     if (super.getActionInputData().getSortType().compareTo("asc") == 0) {
-      auxList = SortingStrategyFactory.createStrategy("asc").bubbleSortForInteger(auxList);
+      auxList = SortingStrategyFactory.createStrategy("asc").sortForInteger(auxList);
     } else {
-      auxList = SortingStrategyFactory.createStrategy("desc").bubbleSortForInteger(auxList);
+      auxList = SortingStrategyFactory.createStrategy("desc").sortForInteger(auxList);
     }
 
     message.append("Query result: [");
