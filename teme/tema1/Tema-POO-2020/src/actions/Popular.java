@@ -17,13 +17,15 @@ import java.util.Map;
 public class Popular extends AbstractAction {
 
   public Popular(
-     final Input input, final ActionInputData actionInputData,
-     final Writer fileWriter, final JSONArray arrayResult) {
+      final Input input,
+      final ActionInputData actionInputData,
+      final Writer fileWriter,
+      final JSONArray arrayResult) {
     super(input, actionInputData, fileWriter, arrayResult);
   }
   /**
-   * Function that computes the Popular recommendation, builds a message,
-   * with the result, and returns it
+   * Function that computes the Popular recommendation, builds a message, with the result, and
+   * returns it
    *
    * <p>DO NOT MODIFY
    */

@@ -19,13 +19,14 @@ public class Search extends AbstractAction {
   private HashMap<String, Double> listMovies = new HashMap<>();
 
   public Search(
-      final Input input, final ActionInputData actionInputData,
-      final Writer fileWriter, final JSONArray arrayResult) {
+      final Input input,
+      final ActionInputData actionInputData,
+      final Writer fileWriter,
+      final JSONArray arrayResult) {
     super(input, actionInputData, fileWriter, arrayResult);
   }
   /**
-   * Function that compute the command Search,
-   * build the result message and returns it
+   * Function that compute the command Search, build the result message and returns it
    *
    * <p>DO NOT MODIFY
    */

@@ -13,8 +13,10 @@ import java.util.Map;
 public class FavoriteRecomandation extends AbstractAction {
 
   public FavoriteRecomandation(
-      final Input input, final ActionInputData actionInputData,
-      final Writer fileWriter, final JSONArray arrayResult) {
+      final Input input,
+      final ActionInputData actionInputData,
+      final Writer fileWriter,
+      final JSONArray arrayResult) {
     super(input, actionInputData, fileWriter, arrayResult);
   }
   /**
@@ -53,9 +55,7 @@ public class FavoriteRecomandation extends AbstractAction {
         }
       }
 
-      if (max < entry.getValue()
-          && !flag
-          && auxuser.getHistory().get(entry.getKey()) == null) {
+      if (max < entry.getValue() && !flag && auxuser.getHistory().get(entry.getKey()) == null) {
         max = entry.getValue();
         aux = entry.getKey();
       }

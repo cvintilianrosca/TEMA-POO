@@ -12,13 +12,14 @@ import java.io.IOException;
 public class Standard extends AbstractAction {
 
   public Standard(
-      final Input input, final ActionInputData actionInputData,
-      final Writer fileWriter, final JSONArray arrayResult) {
+      final Input input,
+      final ActionInputData actionInputData,
+      final Writer fileWriter,
+      final JSONArray arrayResult) {
     super(input, actionInputData, fileWriter, arrayResult);
   }
   /**
-   * Function that compute the command Standard,
-   * build the result message and returns it
+   * Function that compute the command Standard, build the result message and returns it
    *
    * <p>DO NOT MODIFY
    */

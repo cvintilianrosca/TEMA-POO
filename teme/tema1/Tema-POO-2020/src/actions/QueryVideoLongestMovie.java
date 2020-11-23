@@ -16,13 +16,14 @@ import java.util.Map;
 public class QueryVideoLongestMovie extends AbstractAction {
 
   public QueryVideoLongestMovie(
-      final Input input, final ActionInputData actionInputData,
-      final Writer fileWriter, final JSONArray arrayResult) {
+      final Input input,
+      final ActionInputData actionInputData,
+      final Writer fileWriter,
+      final JSONArray arrayResult) {
     super(input, actionInputData, fileWriter, arrayResult);
   }
   /**
-   * Function that computes the Movie Longest query,
-   * build the message with the list and returns it
+   * Function that computes the Movie Longest query, build the message with the list and returns it
    *
    * <p>DO NOT MODIFY
    */
@@ -53,7 +54,6 @@ public class QueryVideoLongestMovie extends AbstractAction {
             if (genre != null) {
               if (genre.compareTo(movieGenre) == 0) {
                 genresFlag = true;
-                //                            System.out.println(movie.getTitle());
                 break;
               }
             }
@@ -75,9 +75,7 @@ public class QueryVideoLongestMovie extends AbstractAction {
       sortedMap = SortingStrategyFactory.createStrategy("desc").sortHashMap(listMovies);
     }
 
-    //         System.out.println(entry.getKey()); System.out.println(entry.getValue());
     ArrayList<Map.Entry<String, Integer>> auxList = new ArrayList<>(sortedMap.entrySet());
-    //            System.out.println("kikiki");
     auxList = SortingStrategyFactory.createStrategy("asc").sortForInteger(auxList);
 
     var append = message.append("Query result: [");

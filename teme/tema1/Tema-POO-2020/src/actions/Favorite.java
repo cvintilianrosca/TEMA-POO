@@ -12,8 +12,10 @@ import java.util.List;
 public class Favorite extends AbstractAction {
 
   public Favorite(
-      final Input input, final ActionInputData actionInputData,
-      final Writer fileWriter, final JSONArray arrayResult) {
+      final Input input,
+      final ActionInputData actionInputData,
+      final Writer fileWriter,
+      final JSONArray arrayResult) {
     super(input, actionInputData, fileWriter, arrayResult);
   }
   /**

@@ -13,15 +13,16 @@ public class CommandInterpretor {
   private final Writer fileWriter;
   private final JSONArray arrayResult;
 
-  public CommandInterpretor(final Input input, final Writer fileWriter,
-                            final JSONArray arrayResult) {
+  public CommandInterpretor(
+      final Input input, final Writer fileWriter, final JSONArray arrayResult) {
     this.input = input;
     this.fileWriter = fileWriter;
     this.arrayResult = arrayResult;
   }
   /**
-   * Function that check action type, and creates objects in order to solve query,
-   * command, recommendations
+   * Function that check action type, and creates objects in order to solve query, command,
+   * recommendations
+   *
    * <p>DO NOT MODIFY
    */
   public void interpretCommands() throws IOException {

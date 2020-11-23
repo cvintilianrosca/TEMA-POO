@@ -16,13 +16,14 @@ import java.util.Map;
 public class QueryActorsAverageRatings extends AbstractAction {
 
   public QueryActorsAverageRatings(
-      final Input input, final ActionInputData actionInputData,
-      final Writer fileWriter, final JSONArray arrayResult) {
+      final Input input,
+      final ActionInputData actionInputData,
+      final Writer fileWriter,
+      final JSONArray arrayResult) {
     super(input, actionInputData, fileWriter, arrayResult);
   }
   /**
-   * Function that computes the Actor average query,
-   * build the message with the list and returns it
+   * Function that computes the Actor average query, build the message with the list and returns it
    *
    * <p>DO NOT MODIFY
    */

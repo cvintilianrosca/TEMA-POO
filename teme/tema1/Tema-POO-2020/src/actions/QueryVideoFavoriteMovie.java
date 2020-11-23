@@ -17,13 +17,14 @@ import java.util.Map;
 public class QueryVideoFavoriteMovie extends AbstractAction {
 
   public QueryVideoFavoriteMovie(
-      final Input input, final ActionInputData actionInputData,
-      final Writer fileWriter, final JSONArray arrayResult) {
+      final Input input,
+      final ActionInputData actionInputData,
+      final Writer fileWriter,
+      final JSONArray arrayResult) {
     super(input, actionInputData, fileWriter, arrayResult);
   }
   /**
-   * Function that computes the Video favorite query,
-   * build the message with the list and returns it
+   * Function that computes the Video favorite query, build the message with the list and returns it
    *
    * <p>DO NOT MODIFY
    */
@@ -67,8 +68,7 @@ public class QueryVideoFavoriteMovie extends AbstractAction {
     for (UserInputData user : super.getInput().getUsers()) {
       for (String favoriteMovie : user.getFavoriteMovies()) {
         if (listMovies.get(favoriteMovie) != null) {
-          listMovies.
-                  put(favoriteMovie, listMovies.get(favoriteMovie) + 1);
+          listMovies.put(favoriteMovie, listMovies.get(favoriteMovie) + 1);
         }
       }
     }

@@ -12,13 +12,15 @@ import java.util.List;
 public class View extends AbstractAction {
 
   public View(
-      final Input input, final ActionInputData actionInputData,
-      final Writer fileWriter, final JSONArray arrayResult) {
+      final Input input,
+      final ActionInputData actionInputData,
+      final Writer fileWriter,
+      final JSONArray arrayResult) {
     super(input, actionInputData, fileWriter, arrayResult);
   }
   /**
-   * Function that compute the command View, modifies the database,
-   * build the result message and returns it
+   * Function that compute the command View, modifies the database, build the result message and
+   * returns it
    *
    * <p>DO NOT MODIFY
    */

@@ -1,6 +1,5 @@
 package actions;
 
-
 import fileio.ActionInputData;
 import fileio.Input;
 import fileio.MovieInputData;
@@ -17,8 +16,10 @@ import java.util.Map;
 public class BestUnseen extends AbstractAction {
 
   public BestUnseen(
-         final Input input, final ActionInputData actionInputData,
-         final Writer fileWriter, final JSONArray arrayResult) {
+      final Input input,
+      final ActionInputData actionInputData,
+      final Writer fileWriter,
+      final JSONArray arrayResult) {
     super(input, actionInputData, fileWriter, arrayResult);
   }
 
@@ -54,7 +55,6 @@ public class BestUnseen extends AbstractAction {
         }
       }
     }
-    System.out.println();
     if (!flag) {
       message.append("BestRatedUnseenRecommendation cannot be applied!");
       return message;

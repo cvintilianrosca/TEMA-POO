@@ -17,13 +17,15 @@ import java.util.Map;
 public class QueryVideoMostViewedMovie extends AbstractAction {
 
   public QueryVideoMostViewedMovie(
-      final Input input, final ActionInputData actionInputData,
-      final Writer fileWriter, final JSONArray arrayResult) {
+      final Input input,
+      final ActionInputData actionInputData,
+      final Writer fileWriter,
+      final JSONArray arrayResult) {
     super(input, actionInputData, fileWriter, arrayResult);
   }
   /**
-   * Function that computes the Movie mostViewed query,
-   * build the message with the list and returns it
+   * Function that computes the Movie mostViewed query, build the message with the list and returns
+   * it
    *
    * <p>DO NOT MODIFY
    */
@@ -45,7 +47,7 @@ public class QueryVideoMostViewedMovie extends AbstractAction {
             break;
           }
         }
-      }  //                System.out.println("sds");
+      }
 
       if (genres.get(0) != null) {
         for (String genre : genres) {
@@ -58,10 +60,8 @@ public class QueryVideoMostViewedMovie extends AbstractAction {
         }
 
       } else {
-        //                System.out.println("fuufuf");
         genresFlag = true;
       }
-      //            System.out.println(movie.getTitle());
       if (genresFlag && yearFlag) {
         listMovies.put(movie.getTitle(), 0);
       }
@@ -82,9 +82,7 @@ public class QueryVideoMostViewedMovie extends AbstractAction {
       sortedMap = SortingStrategyFactory.createStrategy("desc").sortHashMap(listMovies);
     }
 
-    //         System.out.println(entry.getKey()); System.out.println(entry.getValue());
     ArrayList<Map.Entry<String, Integer>> auxList = new ArrayList<>(sortedMap.entrySet());
-    //            System.out.println("kikiki");
     if (super.getActionInputData().getSortType().compareTo("asc") == 0) {
       auxList = SortingStrategyFactory.createStrategy("asc").sortForInteger(auxList);
     } else {

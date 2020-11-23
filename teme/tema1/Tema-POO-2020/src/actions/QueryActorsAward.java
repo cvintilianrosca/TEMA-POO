@@ -68,7 +68,6 @@ public class QueryActorsAward extends AbstractAction {
       sortedlist = SortingStrategyFactory.createStrategy("asc").sortHashMap(listActorsAward);
     }
 
-    //         System.out.println(entry.getKey()); System.out.println(entry.getValue());
     ArrayList<Map.Entry<String, Integer>> auxList = new ArrayList<>(sortedlist.entrySet());
 
     if (super.getActionInputData().getSortType().compareTo("asc") == 0) {

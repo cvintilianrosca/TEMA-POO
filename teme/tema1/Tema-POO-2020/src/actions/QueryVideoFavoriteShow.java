@@ -16,13 +16,14 @@ import java.util.Map;
 public class QueryVideoFavoriteShow extends AbstractAction {
 
   public QueryVideoFavoriteShow(
-      final Input input, final ActionInputData actionInputData,
-      final Writer fileWriter, final JSONArray arrayResult) {
+      final Input input,
+      final ActionInputData actionInputData,
+      final Writer fileWriter,
+      final JSONArray arrayResult) {
     super(input, actionInputData, fileWriter, arrayResult);
   }
   /**
-   * Function that computes the Show favorite query,
-   * build the message with the list and returns it
+   * Function that computes the Show favorite query, build the message with the list and returns it
    *
    * <p>DO NOT MODIFY
    */
@@ -53,7 +54,6 @@ public class QueryVideoFavoriteShow extends AbstractAction {
             if (genre != null) {
               if (genre.compareTo(movieGenre) == 0) {
                 genresFlag = true;
-                //                            System.out.println(movie.getTitle());
                 break;
               }
             }
@@ -64,7 +64,6 @@ public class QueryVideoFavoriteShow extends AbstractAction {
       if (genresFlag && yearFlag) {
         if (!show.getSeasons().isEmpty()) {
           listShows.put(show.getTitle(), 0);
-          // System.out.println(show.getTitle());
         }
       }
     }

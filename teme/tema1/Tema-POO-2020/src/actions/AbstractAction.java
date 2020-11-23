@@ -1,4 +1,3 @@
-
 package actions;
 
 import fileio.ActionInputData;
@@ -15,15 +14,17 @@ public abstract class AbstractAction {
   private final JSONArray arrayResult;
 
   public AbstractAction(
-     final Input input, final ActionInputData actionInputData,
-     final Writer fileWriter, final JSONArray arrayResult) {
+      final Input input,
+      final ActionInputData actionInputData,
+      final Writer fileWriter,
+      final JSONArray arrayResult) {
     this.input = input;
     this.actionInputData = actionInputData;
     this.fileWriter = fileWriter;
     this.arrayResult = arrayResult;
   }
   /**
-   * Function that  computes the result of query, recommendation, command
+   * Function that computes the result of query, recommendation, command
    *
    * <p>DO NOT MODIFY
    */

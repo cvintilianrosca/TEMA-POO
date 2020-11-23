@@ -16,13 +16,14 @@ import java.util.Map;
 public class QueryVideoRatingMovie extends AbstractAction {
 
   public QueryVideoRatingMovie(
-      final Input input, final ActionInputData actionInputData,
-      final Writer fileWriter, final JSONArray arrayResult) {
+      final Input input,
+      final ActionInputData actionInputData,
+      final Writer fileWriter,
+      final JSONArray arrayResult) {
     super(input, actionInputData, fileWriter, arrayResult);
   }
   /**
-   * Function that computes the Movie Rating query,
-   * build the message with the list and returns it
+   * Function that computes the Movie Rating query, build the message with the list and returns it
    *
    * <p>DO NOT MODIFY
    */
@@ -95,7 +96,6 @@ public class QueryVideoRatingMovie extends AbstractAction {
       message.deleteCharAt(message.length() - 1);
     }
     message.append("]");
-    System.out.println();
     return message;
   }
   /**
