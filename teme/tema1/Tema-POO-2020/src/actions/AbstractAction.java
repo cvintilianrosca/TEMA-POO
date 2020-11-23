@@ -1,3 +1,4 @@
+
 package actions;
 
 import fileio.ActionInputData;
@@ -21,23 +22,50 @@ public abstract class AbstractAction {
     this.fileWriter = fileWriter;
     this.arrayResult = arrayResult;
   }
-
+  /**
+   * Function that  computes the result of query, recommendation, command
+   *
+   * <p>DO NOT MODIFY
+   */
   public abstract StringBuilder executeCommand();
-
+  /**
+   * Function that writes the computed message to output
+   *
+   * <p>DO NOT MODIFY
+   */
   public abstract void execute() throws IOException;
 
+  /**
+   * Function that returns arrayResult
+   *
+   * <p>DO NOT MODIFY
+   */
   public JSONArray getArrayResult() {
     return arrayResult;
   }
 
+  /**
+   * Function that returns FileWriter
+   *
+   * <p>DO NOT MODIFY
+   */
   public Writer getFileWriter() {
     return fileWriter;
   }
 
+  /**
+   * Function that returns Action data related
+   *
+   * <p>DO NOT MODIFY
+   */
   public ActionInputData getActionInputData() {
     return actionInputData;
   }
-
+  /**
+   * Function that returns the database
+   *
+   * <p>DO NOT MODIFY
+   */
   public Input getInput() {
     return input;
   }

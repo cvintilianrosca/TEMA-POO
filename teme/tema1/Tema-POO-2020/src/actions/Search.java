@@ -16,14 +16,19 @@ import java.util.Map;
 
 public class Search extends AbstractAction {
 
-  HashMap<String, Double> listMovies = new HashMap<>();
+  private HashMap<String, Double> listMovies = new HashMap<>();
 
   public Search(
       final Input input, final ActionInputData actionInputData,
       final Writer fileWriter, final JSONArray arrayResult) {
     super(input, actionInputData, fileWriter, arrayResult);
   }
-
+  /**
+   * Function that compute the command Search,
+   * build the result message and returns it
+   *
+   * <p>DO NOT MODIFY
+   */
   public StringBuilder executeCommand() {
     StringBuilder message = new StringBuilder();
     String username = super.getActionInputData().getUsername();
@@ -77,7 +82,11 @@ public class Search extends AbstractAction {
 
     return message;
   }
-
+  /**
+   * Function that add the computed message to the arrayResult
+   *
+   * <p>DO NOT MODIFY
+   */
   public void execute() throws IOException {
     StringBuilder message = executeCommand();
     super.getArrayResult()

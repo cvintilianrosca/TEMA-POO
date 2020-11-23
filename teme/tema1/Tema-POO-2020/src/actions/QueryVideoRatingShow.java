@@ -19,7 +19,12 @@ public class QueryVideoRatingShow extends AbstractAction {
       final Writer fileWriter, final JSONArray arrayResult) {
     super(input, actionInputData, fileWriter, arrayResult);
   }
-
+  /**
+   * Function that computes the Show MostRated query,
+   * build the message with the list and returns it
+   *
+   * <p>DO NOT MODIFY
+   */
   public StringBuilder executeCommand() {
 
     StringBuilder message = new StringBuilder();
@@ -90,7 +95,11 @@ public class QueryVideoRatingShow extends AbstractAction {
 
     return message;
   }
-
+  /**
+   * Function that add the computed message to the arrayResult
+   *
+   * <p>DO NOT MODIFY
+   */
   public void execute() throws IOException {
     StringBuilder message = executeCommand();
     super.getArrayResult()

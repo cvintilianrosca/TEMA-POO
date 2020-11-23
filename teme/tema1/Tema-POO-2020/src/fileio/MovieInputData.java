@@ -27,11 +27,20 @@ public final class MovieInputData extends ShowInput {
   public int getDuration() {
     return duration;
   }
-
+  /**
+   * Function that returns a list with ratings
+   *
+   * <p>DO NOT MODIFY
+   */
   public ArrayList<Double> getRatingList() {
     return ratingList;
   }
-
+  /**
+   * Function that computes the total rating of
+   * movies (average)
+   *
+   * <p>DO NOT MODIFY
+   */
   public double getTotalRating() {
     double sum = 0;
     for (double rating : ratingList) {

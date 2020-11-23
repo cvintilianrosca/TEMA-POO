@@ -19,7 +19,11 @@ public class CommandInterpretor {
     this.fileWriter = fileWriter;
     this.arrayResult = arrayResult;
   }
-
+  /**
+   * Function that check action type, and creates objects in order to solve query,
+   * command, recommendations
+   * <p>DO NOT MODIFY
+   */
   public void interpretCommands() throws IOException {
 
     List<ActionInputData> list = input.getCommands();
@@ -103,7 +107,11 @@ public class CommandInterpretor {
       }
     }
   }
-
+  /**
+   * Function that returns the ArrayResult
+   *
+   * <p>DO NOT MODIFY
+   */
   public JSONArray getArrayResult() {
     return arrayResult;
   }

@@ -34,7 +34,9 @@ public final class Checker {
    */
   public List<QueryTest> createQueries(final File file) throws IOException {
     ObjectMapper objectMapper = new ObjectMapper();
-    return objectMapper.readValue(file, new TypeReference<List<QueryTest>>() { } );
+    return objectMapper.readValue(file, new TypeReference<List<QueryTest>>() {
+
+    });
   }
 
   /**

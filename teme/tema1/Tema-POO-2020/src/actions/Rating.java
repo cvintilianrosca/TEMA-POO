@@ -17,7 +17,12 @@ public class Rating extends AbstractAction {
       final Writer fileWriter, final JSONArray arrayResult) {
     super(input, actionInputData, fileWriter, arrayResult);
   }
-
+  /**
+   * Function that compute the command Rating, modifies the database,
+   * build the result message and returns it
+   *
+   * <p>DO NOT MODIFY
+   */
   public StringBuilder executeCommand() {
     StringBuilder message = new StringBuilder();
     String username = super.getActionInputData().getUsername();
@@ -58,10 +63,9 @@ public class Rating extends AbstractAction {
             boolean flag = false;
             if (!(user.getShowRatingsArrayList().isEmpty())) {
               // System.out.println("Abracadabra");
-              for (UserInputData.showRatings showRating : user.getShowRatingsArrayList()) {
+              for (UserInputData.ShowRatings showRating : user.getShowRatingsArrayList()) {
                 if (showRating.getTitle().compareTo(super.getActionInputData().getTitle()) == 0) {
                   // System.out.println(showRating.getTitle());
-                  // System.out.println(showRating.getSeasonRatings().get(actionInputData.getSeasonNumber()));
                   flag = true;
                   // System.out.println("yes");
                   if (showRating
@@ -110,8 +114,8 @@ public class Rating extends AbstractAction {
                       .add(super.getActionInputData().getGrade());
                 }
               }
-              UserInputData.showRatings newRating =
-                      new UserInputData.showRatings(
+              UserInputData.ShowRatings newRating =
+                      new UserInputData.ShowRatings(
                               super.getActionInputData().getTitle(),
                               super.getActionInputData().getSeasonNumber(),
                               (float) super.getActionInputData().getGrade());
@@ -134,7 +138,11 @@ public class Rating extends AbstractAction {
     }
     return message;
   }
-
+  /**
+   * Function that add the computed message to the arrayResult
+   *
+   * <p>DO NOT MODIFY
+   */
   public void execute() throws IOException {
     StringBuilder message = executeCommand();
     super.getArrayResult()

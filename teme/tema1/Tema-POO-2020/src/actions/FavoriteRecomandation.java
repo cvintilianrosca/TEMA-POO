@@ -17,11 +17,15 @@ public class FavoriteRecomandation extends AbstractAction {
       final Writer fileWriter, final JSONArray arrayResult) {
     super(input, actionInputData, fileWriter, arrayResult);
   }
-
+  /**
+   * Function that computes the Favorite Recommendation, builds a message, and returns it
+   *
+   * <p>DO NOT MODIFY
+   */
   public StringBuilder executeCommand() {
     String username = super.getActionInputData().getUsername();
     StringBuilder message = new StringBuilder();
-    HashMap<String, Integer> FavoritesMovie = new HashMap<>();
+    HashMap<String, Integer> favoritesMovie = new HashMap<>();
     UserInputData auxuser = null;
     for (UserInputData user : super.getInput().getUsers()) {
       if (user.getUsername().compareTo(username) == 0) {
@@ -32,13 +36,13 @@ public class FavoriteRecomandation extends AbstractAction {
         }
       }
       for (String movie : user.getFavoriteMovies()) {
-        FavoritesMovie.merge(movie, 1, Integer::sum);
+        favoritesMovie.merge(movie, 1, Integer::sum);
       }
     }
 
     int max = 0;
     String aux = null;
-    for (Map.Entry<String, Integer> entry : FavoritesMovie.entrySet()) {
+    for (Map.Entry<String, Integer> entry : favoritesMovie.entrySet()) {
       boolean flag = false;
 
       assert auxuser != null;
@@ -65,7 +69,11 @@ public class FavoriteRecomandation extends AbstractAction {
     }
     return message;
   }
-
+  /**
+   * Function that add the computed message to the arrayList
+   *
+   * <p>DO NOT MODIFY
+   */
   public void execute() throws IOException {
     StringBuilder message = executeCommand();
     super.getArrayResult()

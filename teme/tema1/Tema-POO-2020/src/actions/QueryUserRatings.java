@@ -19,7 +19,12 @@ public class QueryUserRatings extends AbstractAction {
       final Writer fileWriter, final JSONArray arrayResult) {
     super(input, actionInputData, fileWriter, arrayResult);
   }
-
+  /**
+   * Function that computes the user rating query,
+   * build the message with the list and returns it
+   *
+   * <p>DO NOT MODIFY
+   */
   public StringBuilder executeCommand() {
     HashMap<String, Integer> usersList = new HashMap<>();
     StringBuilder message = new StringBuilder();
@@ -71,7 +76,11 @@ public class QueryUserRatings extends AbstractAction {
     message.append("]");
     return message;
   }
-
+  /**
+   * Function that add the computed message to the arrayResult
+   *
+   * <p>DO NOT MODIFY
+   */
   public void execute() throws IOException {
     StringBuilder message = executeCommand();
     super.getArrayResult()

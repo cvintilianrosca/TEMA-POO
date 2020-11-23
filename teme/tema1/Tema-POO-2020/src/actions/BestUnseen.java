@@ -22,6 +22,11 @@ public class BestUnseen extends AbstractAction {
     super(input, actionInputData, fileWriter, arrayResult);
   }
 
+  /**
+   * Function that computes the best_unseen recommendation and return a stingBuilder message
+   *
+   * <p>DO NOT MODIFY
+   */
   public StringBuilder executeCommand() {
     String username = super.getActionInputData().getUsername();
     StringBuilder message = new StringBuilder();
@@ -72,6 +77,11 @@ public class BestUnseen extends AbstractAction {
     return message;
   }
 
+  /**
+   * Function that add the computed string message into the arraylist
+   *
+   * <p>DO NOT MODIFY
+   */
   public void execute() throws IOException {
     StringBuilder message = executeCommand();
     getArrayResult()

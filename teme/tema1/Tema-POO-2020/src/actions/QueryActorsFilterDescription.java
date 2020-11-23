@@ -18,7 +18,12 @@ public class QueryActorsFilterDescription extends AbstractAction {
      final Writer fileWriter, final JSONArray arrayResult) {
     super(input, actionInputData, fileWriter, arrayResult);
   }
-
+  /**
+   * Function that computes the Actor filterDescription query,
+   * build the message with the list and returns it
+   *
+   * <p>DO NOT MODIFY
+   */
   public StringBuilder executeCommand() {
     StringBuilder message = new StringBuilder();
     List<String> listFilterDescription = super.getActionInputData().getFilters().get(2);
@@ -71,7 +76,11 @@ public class QueryActorsFilterDescription extends AbstractAction {
     message.append("]");
     return message;
   }
-
+  /**
+   * Function that add the computed message to the arrayResult
+   *
+   * <p>DO NOT MODIFY
+   */
   public void execute() throws IOException {
     StringBuilder message = executeCommand();
     super.getArrayResult()

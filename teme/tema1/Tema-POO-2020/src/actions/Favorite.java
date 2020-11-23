@@ -16,7 +16,11 @@ public class Favorite extends AbstractAction {
       final Writer fileWriter, final JSONArray arrayResult) {
     super(input, actionInputData, fileWriter, arrayResult);
   }
-
+  /**
+   * Function that computes the command favorite and returns a stringBuilder message
+   *
+   * <p>DO NOT MODIFY
+   */
   public StringBuilder executeCommand() {
     StringBuilder message = new StringBuilder();
     String username = super.getActionInputData().getUsername();
@@ -50,6 +54,11 @@ public class Favorite extends AbstractAction {
     return message;
   }
 
+  /**
+   * Function that add the stringBuilder message to the arrayResult
+   *
+   * <p>DO NOT MODIFY
+   */
   public void execute() throws IOException {
     StringBuilder message = executeCommand();
     super.getArrayResult()

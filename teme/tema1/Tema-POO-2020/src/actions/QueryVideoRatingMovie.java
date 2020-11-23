@@ -20,7 +20,12 @@ public class QueryVideoRatingMovie extends AbstractAction {
       final Writer fileWriter, final JSONArray arrayResult) {
     super(input, actionInputData, fileWriter, arrayResult);
   }
-
+  /**
+   * Function that computes the Movie Rating query,
+   * build the message with the list and returns it
+   *
+   * <p>DO NOT MODIFY
+   */
   public StringBuilder executeCommand() {
     StringBuilder message = new StringBuilder();
     HashMap<String, Float> listMovies = new HashMap<>();
@@ -93,7 +98,11 @@ public class QueryVideoRatingMovie extends AbstractAction {
     System.out.println();
     return message;
   }
-
+  /**
+   * Function that add the computed message to the arrayResult
+   *
+   * <p>DO NOT MODIFY
+   */
   public void execute() throws IOException {
     StringBuilder message = executeCommand();
     super.getArrayResult()

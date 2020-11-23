@@ -20,7 +20,12 @@ public class QueryActorsAverageRatings extends AbstractAction {
       final Writer fileWriter, final JSONArray arrayResult) {
     super(input, actionInputData, fileWriter, arrayResult);
   }
-
+  /**
+   * Function that computes the Actor average query,
+   * build the message with the list and returns it
+   *
+   * <p>DO NOT MODIFY
+   */
   public StringBuilder executeCommand() {
     StringBuilder message = new StringBuilder();
     HashMap<String, ArrayList<Double>> actorsList = new HashMap<>();
@@ -110,7 +115,11 @@ public class QueryActorsAverageRatings extends AbstractAction {
 
     return message;
   }
-
+  /**
+   * Function that add the computed message to the arrayResult
+   *
+   * <p>DO NOT MODIFY
+   */
   public void execute() throws IOException {
     StringBuilder message = executeCommand();
     super.getArrayResult()

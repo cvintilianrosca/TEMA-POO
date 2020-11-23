@@ -19,7 +19,7 @@ public final class UserInputData {
   /** Movies added to favorites */
   private final ArrayList<String> favoriteMovies;
 
-  private final ArrayList<showRatings> showRatingsArrayList = new ArrayList<>();
+  private final ArrayList<ShowRatings> showRatingsArrayList = new ArrayList<>();
   private final Map<String, Float> movieRatings = new HashMap<>();
 
   public UserInputData(
@@ -53,7 +53,7 @@ public final class UserInputData {
     return movieRatings;
   }
 
-  public ArrayList<showRatings> getShowRatingsArrayList() {
+  public ArrayList<ShowRatings> getShowRatingsArrayList() {
     return showRatingsArrayList;
   }
 
@@ -73,25 +73,27 @@ public final class UserInputData {
         + '}';
   }
 
-  public static class showRatings {
-    private String title;
+  public static class ShowRatings {
+    private final String title;
     private final Map<Integer, Float> seasonRatings = new HashMap<>();
 
-    public showRatings(String title, final int season, final float rating) {
+    public ShowRatings(final String title, final int season, final float rating) {
       this.title = title;
       this.seasonRatings.put(season, rating);
     }
-
+    /**
+     * Function that returns season ratings
+     * <p>DO NOT MODIFY
+     */
     public Map<Integer, Float> getSeasonRatings() {
       return seasonRatings;
     }
-
+    /**
+     * Function that returns Title of movie
+     * <p>DO NOT MODIFY
+     */
     public String getTitle() {
       return title;
-    }
-
-    public void setTitle(String title) {
-      this.title = title;
     }
   }
 }

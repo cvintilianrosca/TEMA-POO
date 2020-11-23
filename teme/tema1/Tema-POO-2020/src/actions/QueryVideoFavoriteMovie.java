@@ -21,7 +21,12 @@ public class QueryVideoFavoriteMovie extends AbstractAction {
       final Writer fileWriter, final JSONArray arrayResult) {
     super(input, actionInputData, fileWriter, arrayResult);
   }
-
+  /**
+   * Function that computes the Video favorite query,
+   * build the message with the list and returns it
+   *
+   * <p>DO NOT MODIFY
+   */
   public StringBuilder executeCommand() {
     StringBuilder message = new StringBuilder();
     HashMap<String, Integer> listMovies = new HashMap<>();
@@ -101,7 +106,11 @@ public class QueryVideoFavoriteMovie extends AbstractAction {
     message.append("]");
     return message;
   }
-
+  /**
+   * Function that add the computed message to the arrayResult
+   *
+   * <p>DO NOT MODIFY
+   */
   public void execute() throws IOException {
     StringBuilder message = executeCommand();
     super.getArrayResult()

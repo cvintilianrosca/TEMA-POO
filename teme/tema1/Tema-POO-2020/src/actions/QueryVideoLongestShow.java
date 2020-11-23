@@ -20,7 +20,12 @@ public class QueryVideoLongestShow extends AbstractAction {
      final Writer fileWriter, final JSONArray arrayResult) {
     super(input, actionInputData, fileWriter, arrayResult);
   }
-
+  /**
+   * Function that computes the Show longest query,
+   * build the message with the list and returns it
+   *
+   * <p>DO NOT MODIFY
+   */
   public StringBuilder executeCommand() {
     StringBuilder message;
     message = new StringBuilder();
@@ -90,7 +95,11 @@ public class QueryVideoLongestShow extends AbstractAction {
     message.append("]");
     return message;
   }
-
+  /**
+   * Function that add the computed message to the arrayResult
+   *
+   * <p>DO NOT MODIFY
+   */
   public void execute() throws IOException {
     StringBuilder message = executeCommand();
     super.getArrayResult()

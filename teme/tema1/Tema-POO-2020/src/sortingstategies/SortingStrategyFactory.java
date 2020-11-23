@@ -1,7 +1,11 @@
 package sortingstategies;
 
 public class SortingStrategyFactory {
-
+  /**
+   * Function that creates an instance of SortingStrategy
+   * depending by strategyType
+   * <p>DO NOT MODIFY
+   */
   public static SortingStrategy createStrategy(final String strategyType) {
 
     if (strategyType.compareTo("asc") == 0) {

@@ -10,7 +10,11 @@ import java.util.Map;
 
 public class AscendingSortingStrategy implements SortingStrategy {
 
-
+    /**
+     * Function that sort ascending a HashMap by value
+     *
+     * <p>DO NOT MODIFY
+     */
     @Override
     public HashMap sortHashMap(final HashMap map) {
         List<Map.Entry> list;
@@ -25,7 +29,12 @@ public class AscendingSortingStrategy implements SortingStrategy {
         return sortedHashMap;
 
     }
-
+    /**
+     * Function that sort ascending a list with
+     * Map.Entry<String, Double> by key if value==0
+     *
+     * <p>DO NOT MODIFY
+     */
     @Override
     public ArrayList<Map.Entry<String, Double>>
     bubbleSortForDouble(final ArrayList<Map.Entry<String, Double>> auxList) {
@@ -43,7 +52,12 @@ public class AscendingSortingStrategy implements SortingStrategy {
         }
         return auxList;
     }
-
+    /**
+     * Function that sort ascending a list with
+     * Map.Entry<String, Integer> by key if value==0
+     *
+     * <p>DO NOT MODIFY
+     */
     @Override
     public ArrayList<Map.Entry<String, Integer>>
     bubbleSortForInteger(final ArrayList<Map.Entry<String, Integer>> auxList) {
@@ -61,7 +75,12 @@ public class AscendingSortingStrategy implements SortingStrategy {
         }
         return auxList;
     }
-
+    /**
+     * Function that sort ascending a list with
+     * Map.Entry<String, Float> by key if value==0
+     *
+     * <p>DO NOT MODIFY
+     */
     @Override
     public ArrayList<Map.Entry<String, Float>>
     bubbleSortForFLoat(final ArrayList<Map.Entry<String, Float>> auxList) {

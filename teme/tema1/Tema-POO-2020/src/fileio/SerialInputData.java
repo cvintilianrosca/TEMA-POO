@@ -30,7 +30,12 @@ public final class SerialInputData extends ShowInput {
   public int getNumberSeason() {
     return numberOfSeasons;
   }
-
+  /**
+   * Function that return the total rating
+   * of serials
+   *
+   * <p>DO NOT MODIFY
+   */
   public double getTotalRatings() {
     double result = 0;
     double sum = 0;

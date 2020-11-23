@@ -1,6 +1,11 @@
 package actions;
 
-import fileio.*;
+import fileio.ActionInputData;
+import fileio.Input;
+import fileio.MovieInputData;
+import fileio.SerialInputData;
+import fileio.UserInputData;
+import fileio.Writer;
 import org.json.simple.JSONArray;
 import sortingstategies.SortingStrategy;
 import sortingstategies.SortingStrategyFactory;
@@ -16,7 +21,12 @@ public class Popular extends AbstractAction {
      final Writer fileWriter, final JSONArray arrayResult) {
     super(input, actionInputData, fileWriter, arrayResult);
   }
-
+  /**
+   * Function that computes the Popular recommendation, builds a message,
+   * with the result, and returns it
+   *
+   * <p>DO NOT MODIFY
+   */
   public StringBuilder executeCommand() {
     String username = super.getActionInputData().getUsername();
     StringBuilder message = new StringBuilder();
@@ -91,7 +101,11 @@ public class Popular extends AbstractAction {
     message.append("PopularRecommendation cannot be applied!");
     return message;
   }
-
+  /**
+   * Function that add the computed message to the arrayResult
+   *
+   * <p>DO NOT MODIFY
+   */
   public void execute() throws IOException {
     StringBuilder message = executeCommand();
     super.getArrayResult()
