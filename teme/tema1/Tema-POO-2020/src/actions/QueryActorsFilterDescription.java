@@ -14,13 +14,15 @@ import java.util.List;
 public class QueryActorsFilterDescription extends AbstractAction {
 
   public QueryActorsFilterDescription(
-     final Input input, final ActionInputData actionInputData,
-     final Writer fileWriter, final JSONArray arrayResult) {
+      final Input input,
+      final ActionInputData actionInputData,
+      final Writer fileWriter,
+      final JSONArray arrayResult) {
     super(input, actionInputData, fileWriter, arrayResult);
   }
   /**
-   * Function that computes the Actor filterDescription query,
-   * build the message with the list and returns it
+   * Function that computes the Actor filterDescription query, build the message with the list and
+   * returns it
    *
    * <p>DO NOT MODIFY
    */
@@ -28,20 +30,26 @@ public class QueryActorsFilterDescription extends AbstractAction {
     StringBuilder message = new StringBuilder();
     List<String> listFilterDescription = super.getActionInputData().getFilters().get(2);
     List<String> listActors = new ArrayList<>();
+    StringBuilder aux = new StringBuilder();
     for (ActorInputData actor : super.getInput().getActors()) {
       boolean flag = true;
 
       for (String filter : listFilterDescription) {
+        String aux1 = filter + " ";
         String description = actor.getCareerDescription().toLowerCase();
-        if (!description.contains(filter)) {
-          flag = false;
-          break;
+        if (!description.contains(aux1)) {
+          if (!description.contains(filter + ",")) {
+            if (!description.contains(filter + ".")) {
+              flag = false;
+            }
+          }
         }
       }
       if (flag) {
         listActors.add(actor.getName());
       }
     }
+
     if (super.getActionInputData().getSortType().compareTo("asc") == 0) {
       Collections.sort(listActors);
     }
@@ -49,22 +57,6 @@ public class QueryActorsFilterDescription extends AbstractAction {
       listActors.sort(Collections.reverseOrder());
     }
     message.append("Query result: [");
-    if (!listActors.isEmpty()) {
-      if (listActors.get(0).compareTo("Brad Pitt") == 0) {
-        message.append("Brad Pitt");
-        message.append("]");
-        return message;
-      }
-    }
-    if (listActors.size() == 11) {
-      if (listActors.get(0).compareTo("Tom Hanks") == 0
-          && listActors.get(1).compareTo("Sarah Jessica Parker") == 0) {
-        listActors.remove("Tom Hanks");
-        listActors.remove("Sarah Jessica Parker");
-        listActors.remove("Ryan Reynolds");
-        listActors.remove("Drake Bell");
-      }
-    }
 
     for (String actor : listActors) {
       message.append(actor).append(", ");
