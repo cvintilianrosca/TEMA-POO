@@ -1,9 +1,13 @@
 package sortingstategies;
 
-public class SortingStrategyFactory {
+public final class SortingStrategyFactory {
+
+  private SortingStrategyFactory() {
+
+  }
   /**
-   * Function that creates an instance of SortingStrategy
-   * depending by strategyType
+   * Function that creates an instance of SortingStrategy depending by strategyType
+   *
    * <p>DO NOT MODIFY
    */
   public static SortingStrategy createStrategy(final String strategyType) {
